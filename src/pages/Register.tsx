@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Mail, Lock, BookOpen } from 'lucide-react';
+import { User, Mail, Lock } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { CuteDog, PawPrint, Heart, Star, Bone } from '@/components/CuteDecorations';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -44,29 +45,43 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans flex items-center justify-center p-6">
-      <div className="w-full max-w-md">
-        <div className="bg-surface border border-border rounded-2xl shadow-soft p-8">
-          <div className="text-center mb-10">
-            <div className="inline-block mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto text-white">
-                <BookOpen className="w-8 h-8" />
-              </div>
+    <div className="min-h-screen bg-background font-sans flex items-center justify-center p-6 relative overflow-hidden">
+      <div className="absolute top-10 right-10 float">
+        <Bone size={40} />
+      </div>
+      <div className="absolute top-20 left-20 bounce-soft">
+        <Heart size={30} />
+      </div>
+      <div className="absolute bottom-20 right-20 bounce-soft" style={{ animationDelay: '0.5s' }}>
+        <PawPrint size={25} />
+      </div>
+      <div className="absolute bottom-10 left-10 float" style={{ animationDelay: '1s' }}>
+        <Star size={35} />
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
+        <div className="bg-surface border-2 border-border rounded-3xl shadow-cute p-8 relative">
+          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
+            <div className="float" style={{ animationDelay: '0.3s' }}>
+              <CuteDog size={90} />
             </div>
-            <h1 className="text-3xl font-bold text-text mb-2">创建账户</h1>
-            <p className="text-muted">开始你的博客之旅，记录每一个精彩瞬间</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="text-center mb-8 pt-8">
+            <h1 className="text-3xl font-extrabold text-text mb-2">创建账户！</h1>
+            <p className="text-muted">开始你的博客之旅，记录每一个精彩瞬间 🐶</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-text mb-2">你的名字</label>
+              <label className="block text-sm font-bold text-text mb-2 ml-1">你的名字</label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-background border border-border rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-12 pr-4 py-4 bg-accent/30 border-2 border-border rounded-2xl text-text placeholder-muted focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
                   placeholder="你的名字"
                   required
                 />
@@ -74,14 +89,14 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-text mb-2">邮箱地址</label>
+              <label className="block text-sm font-bold text-text mb-2 ml-1">邮箱地址</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-background border border-border rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-12 pr-4 py-4 bg-accent/30 border-2 border-border rounded-2xl text-text placeholder-muted focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
                   placeholder="your@email.com"
                   required
                 />
@@ -89,14 +104,14 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-text mb-2">密码</label>
+              <label className="block text-sm font-bold text-text mb-2 ml-1">密码</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-background border border-border rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-12 pr-4 py-4 bg-accent/30 border-2 border-border rounded-2xl text-text placeholder-muted focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
                   placeholder="••••••••"
                   required
                 />
@@ -104,14 +119,14 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-text mb-2">确认密码</label>
+              <label className="block text-sm font-bold text-text mb-2 ml-1">确认密码</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-background border border-border rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-12 pr-4 py-4 bg-accent/30 border-2 border-border rounded-2xl text-text placeholder-muted focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
                   placeholder="••••••••"
                   required
                 />
@@ -119,7 +134,7 @@ export default function Register() {
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
+              <div className="bg-red-50 border-2 border-red-200 text-red-600 px-4 py-3 rounded-2xl text-sm font-semibold">
                 {error}
               </div>
             )}
@@ -127,9 +142,9 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary text-white py-3.5 rounded-xl font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-secondary to-primary text-white py-4 rounded-2xl font-bold text-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-soft hover:shadow-cute transform hover:-translate-y-0.5"
             >
-              {loading ? '注册中...' : '创建账户'}
+              {loading ? '注册中...' : '创建账户 🎉'}
             </button>
           </form>
 
@@ -138,9 +153,9 @@ export default function Register() {
               已有账户？{' '}
               <Link
                 to="/login"
-                className="text-primary font-semibold hover:underline"
+                className="text-primary font-bold hover:underline"
               >
-                返回登录
+                返回登录 🐾
               </Link>
             </p>
           </div>

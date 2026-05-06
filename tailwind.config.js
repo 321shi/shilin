@@ -9,21 +9,26 @@ export default {
     },
     extend: {
       colors: {
-        primary: "#3b82f6",
-        secondary: "#10b981",
-        accent: "#8b5cf6",
-        text: "#1f2937",
-        muted: "#6b7280",
-        background: "#f9fafb",
-        surface: "#ffffff",
-        border: "#e5e7eb",
+        primary: "#FFB6C1",
+        secondary: "#87CEEB",
+        accent: "#FFE4E1",
+        text: "#4A4A4A",
+        muted: "#9A9A9A",
+        background: "#FFFAF0",
+        surface: "#FFFFFF",
+        border: "#F0E6E6",
       },
       fontFamily: {
-        'sans': ['"Inter"', '"Noto Sans SC"', 'sans-serif'],
+        'sans': ['"Nunito"', '"Noto Sans SC"', 'sans-serif'],
+      },
+      borderRadius: {
+        'xl': '1.5rem',
+        '2xl': '2rem',
+        '3xl': '2.5rem',
       },
       boxShadow: {
-        'soft': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-        'medium': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        'soft': '0 4px 20px -2px rgb(255 182 193 / 0.15), 0 2px 8px -4px rgb(255 182 193 / 0.1)',
+        'cute': '0 8px 30px -4px rgb(255 182 193 / 0.25), 0 4px 12px -6px rgb(255 182 193 / 0.15)',
       }
     },
   },
