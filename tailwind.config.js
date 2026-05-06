@@ -9,17 +9,22 @@ export default {
     },
     extend: {
       colors: {
-        primary: "#8B6F47",
-        accent: "#D4A574",
-        text: "#2C2C2C",
-        muted: "#6B7280",
-        background: "#FDFCF9",
+        primary: "#FF3D00",
+        secondary: "#0066FF",
+        accent: "#FFEB3B",
+        text: "#1A1A1A",
+        background: "#FFF9E6",
         surface: "#FFFFFF",
+        border: "#1A1A1A",
       },
       fontFamily: {
-        'serif': ['"Source Serif 4"', 'serif'],
-        'sans': ['"DM Sans"', 'sans-serif'],
+        'comic': ['"Bangers"', 'cursive'],
+        'sans': ['"Roboto"', 'sans-serif'],
       },
+      boxShadow: {
+        'comic': '6px 6px 0px #1A1A1A',
+        'comic-sm': '3px 3px 0px #1A1A1A',
+      }
     },
   },
   plugins: [],
