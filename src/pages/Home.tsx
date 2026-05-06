@@ -1,57 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { LogOut, PenTool, Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
-import { LineDog, LinePaw, LineHeart, LineStar, DoodleDecor, CornerLines } from '@/components/CuteDecorations';
-
-interface Post {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-}
-
-const samplePosts: Post[] = [
-  {
-    id: '1',
-    title: '关于生活的思考与记录',
-    excerpt: '生活中的每一个瞬间都值得被记录。今天我想分享一些最近的想法和感悟，希望能给你带来一点启发。',
-    date: '2024年1月15日',
-    readTime: '5 分钟',
-    category: '生活随笔'
-  },
-  {
-    id: '2',
-    title: '探索编程的艺术',
-    excerpt: '编程不仅仅是写代码，更是一种创造性的表达。让我们一起探索其中的奥秘，发现技术之美。',
-    date: '2024年1月10日',
-    readTime: '8 分钟',
-    category: '技术分享'
-  },
-  {
-    id: '3',
-    title: '阅读带来的改变',
-    excerpt: '最近读完了几本书，每一本都给我带来了不同的启发。想和大家分享一下阅读的快乐。',
-    date: '2024年1月5日',
-    readTime: '6 分钟',
-    category: '读书笔记'
-  },
-  {
-    id: '4',
-    title: '旅行的意义',
-    excerpt: '去年去了几个地方，看到了不一样的风景，也遇到了有趣的人。记录下这些美好的回忆。',
-    date: '2023年12月28日',
-    readTime: '7 分钟',
-    category: '旅行日记'
-  }
-];
+import { usePosts } from '@/hooks/usePosts';
+import { LineDog, LinePaw, LineHeart, LineStar, DoodleDecor } from '@/components/CuteDecorations';
 
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuth();
+  const { posts } = usePosts();
   const navigate = useNavigate();
-  const [posts] = useState<Post[]>(samplePosts);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -125,9 +82,18 @@ export default function Home() {
       </section>
 
       <main className="max-w-4xl mx-auto px-6 pb-16 relative z-10">
-        <div className="flex items-center gap-4 mb-10">
-          <PenTool className="w-8 h-8 text-black" />
-          <h3 className="text-3xl font-bold text-black">最新文章</h3>
+        <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center gap-4">
+            <PenTool className="w-8 h-8 text-black" />
+            <h3 className="text-3xl font-bold text-black">最新文章</h3>
+          </div>
+          <Link
+            to="/create"
+            className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-xl font-bold text-xl hover:bg-gray-800 transition-all hand-drawn-shadow"
+          >
+            <PenTool className="w-5 h-5" />
+            写新文章
+          </Link>
         </div>
 
         <div className="space-y-7">
@@ -164,11 +130,19 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <button className="px-12 py-5 bg-black text-white rounded-2xl font-bold text-2xl hover:bg-gray-800 transition-all hand-drawn-shadow">
-            写新文章 ✨
-          </button>
-        </div>
+        {posts.length === 0 && (
+          <div className="text-center py-20">
+            <LineDog size={100} className="mx-auto mb-6 opacity-50" />
+            <p className="text-2xl text-gray-500">还没有文章哦，快来写第一篇吧！</p>
+            <Link
+              to="/create"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-xl font-bold text-xl hover:bg-gray-800 transition-all hand-drawn-shadow mt-6"
+            >
+              <PenTool className="w-5 h-5" />
+              写第一篇文章
+            </Link>
+          </div>
+        )}
       </main>
 
       <footer className="border-t-3 border-black bg-white py-12">
