@@ -9,12 +9,16 @@ export default {
     },
     extend: {
       colors: {
-        primary: "#1e3a8a",
-        secondary: "#06b6d4",
+        primary: "#8B6F47",
+        accent: "#D4A574",
+        text: "#2C2C2C",
+        muted: "#6B7280",
+        background: "#FDFCF9",
+        surface: "#FFFFFF",
       },
       fontFamily: {
-        'playfair': ['"Playfair Display"', 'serif'],
-        'lato': ['"Lato"', 'sans-serif'],
+        'serif': ['"Source Serif 4"', 'serif'],
+        'sans': ['"DM Sans"', 'sans-serif'],
       },
     },
   },
