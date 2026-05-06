@@ -102,7 +102,7 @@ export default function Login() {
             </div>
 
             {error && (
-              <div className="bg-primary text-white px-6 py-4 border-4 border-border shadow-comic text-xl font-bold">
+              <div className="bg-accent text-text px-6 py-4 border-4 border-border shadow-comic text-xl font-bold">
                 {error}
               </div>
             )}
@@ -110,7 +110,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-secondary text-white py-5 border-4 border-border shadow-comic font-comic text-3xl tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+              className="w-full bg-secondary text-text py-5 border-4 border-border shadow-comic font-comic text-3xl tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
             >
               {loading ? '登录中...' : (
                 <>

@@ -21,7 +21,7 @@ const samplePosts: Post[] = [
     date: '2024年1月15日',
     readTime: '5 分钟',
     category: '生活随笔',
-    color: '#FF3D00'
+    color: '#FFC107'
   },
   {
     id: '2',
@@ -30,7 +30,7 @@ const samplePosts: Post[] = [
     date: '2024年1月10日',
     readTime: '8 分钟',
     category: '技术分享',
-    color: '#0066FF'
+    color: '#FF9800'
   },
   {
     id: '3',
@@ -48,7 +48,7 @@ const samplePosts: Post[] = [
     date: '2023年12月28日',
     readTime: '7 分钟',
     category: '旅行日记',
-    color: '#4CAF50'
+    color: '#FFD54F'
   }
 ];
 
@@ -113,15 +113,15 @@ export default function Home() {
 
             <div className="bg-white border-4 border-border shadow-comic p-10 relative">
               <div className="text-center">
-                <p className="text-xl font-bold text-secondary mb-3 uppercase tracking-wider">欢迎来到</p>
-                <h2 className="text-7xl font-comic text-text mb-4 tracking-wider leading-tight">
-                  我的个人
-                  <span className="text-primary"> 博客!</span>
-                </h2>
-                <p className="text-2xl font-bold text-text">
-                  在这里记录一切我想记录的! <Sparkles className="inline w-8 h-8 text-secondary ml-2" />
-                </p>
-              </div>
+              <p className="text-xl font-bold text-secondary mb-3 uppercase tracking-wider">欢迎来到</p>
+              <h2 className="text-7xl font-comic text-text mb-4 tracking-wider leading-tight">
+                我的个人
+                <span className="text-primary"> 博客!</span>
+              </h2>
+              <p className="text-2xl font-bold text-text">
+                在这里记录一切我想记录的! <Sparkles className="inline w-8 h-8 text-primary ml-2" />
+              </p>
+            </div>
             </div>
           </div>
         </section>
@@ -145,7 +145,7 @@ export default function Home() {
                 <div className="bg-white border-4 border-border shadow-comic p-6 hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform">
                   <div className="flex flex-wrap items-center gap-4 mb-4">
                     <span
-                      className="px-4 py-2 text-white font-comic text-lg border-4 border-border shadow-comic-sm"
+                      className="px-4 py-2 text-text font-comic text-lg border-4 border-border shadow-comic-sm"
                       style={{ backgroundColor: post.color }}
                     >
                       {post.category.toUpperCase()}
@@ -159,13 +159,13 @@ export default function Home() {
                       {post.readTime}
                     </span>
                   </div>
-                  <h4 className="text-4xl font-comic text-text mb-4 group-hover:text-primary transition-colors tracking-wide">
+                  <h4 className="text-4xl font-comic text-text mb-4 group-hover:text-secondary transition-colors tracking-wide">
                     {post.title}
                   </h4>
                   <p className="text-xl text-text leading-relaxed mb-6 font-bold">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center gap-3 text-2xl font-comic text-secondary">
+                  <div className="flex items-center gap-3 text-2xl font-comic text-primary">
                     <span>阅读全文!</span>
                     <Zap className="w-8 h-8" />
                   </div>

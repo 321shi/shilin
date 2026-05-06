@@ -9,11 +9,11 @@ export default {
     },
     extend: {
       colors: {
-        primary: "#FF3D00",
-        secondary: "#0066FF",
+        primary: "#FFC107",
+        secondary: "#FF9800",
         accent: "#FFEB3B",
         text: "#1A1A1A",
-        background: "#FFF9E6",
+        background: "#FFFDE7",
         surface: "#FFFFFF",
         border: "#1A1A1A",
       },

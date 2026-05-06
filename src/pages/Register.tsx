@@ -153,7 +153,7 @@ export default function Register() {
             </div>
 
             {error && (
-              <div className="bg-primary text-white px-6 py-4 border-4 border-border shadow-comic text-xl font-bold">
+              <div className="bg-accent text-text px-6 py-4 border-4 border-border shadow-comic text-xl font-bold">
                 {error}
               </div>
             )}
@@ -161,7 +161,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary text-white py-5 border-4 border-border shadow-comic font-comic text-3xl tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-primary text-text py-5 border-4 border-border shadow-comic font-comic text-3xl tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? '注册中...' : '创建账户!'}
             </button>
