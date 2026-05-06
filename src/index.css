@@ -10,49 +10,26 @@
   font-weight: 500;
 }
 
-/* 线条风格装饰 */
+/* 黑白线条风格装饰 */
 .line-bg {
   background-image: 
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 30px,
-      rgba(45, 45, 45, 0.03) 30px,
-      rgba(45, 45, 45, 0.03) 31px
+      rgba(0, 0, 0, 0.03) 30px,
+      rgba(0, 0, 0, 0.03) 31px
     );
 }
 
-.dashed-border {
-  border: 3px dashed #2D2D2D;
-}
-
-.wiggle-line {
-  position: relative;
-}
-
-.wiggle-line::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%232D2D2D' fill='none' stroke-width='3'/%3E%3C/svg%3E");
-  background-size: 100px 10px;
-}
-
 .hand-drawn-shadow {
-  box-shadow: 4px 4px 0px #2D2D2D;
+  box-shadow: 4px 4px 0px #000000;
   transition: all 0.2s ease;
 }
 
 .hand-drawn-shadow:hover {
-  box-shadow: 6px 6px 0px #2D2D2D;
+  box-shadow: 6px 6px 0px #000000;
   transform: translate(-2px, -2px);
-}
-
-.pencil-texture {
-  filter: url(#pencil-texture);
 }
 
 @keyframes sketch {
@@ -71,4 +48,19 @@
 
 .bounce-sketch {
   animation: bounce-gentle 2.5s ease-in-out infinite;
+}
+
+.wiggle-line {
+  position: relative;
+}
+
+.wiggle-line::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%23000000' fill='none' stroke-width='3'/%3E%3C/svg%3E");
+  background-size: 100px 10px;
 }

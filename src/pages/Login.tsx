@@ -32,28 +32,28 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans flex items-center justify-center p-6 relative overflow-hidden line-bg">
-      <div className="absolute top-8 left-8 opacity-40 bounce-sketch">
+    <div className="min-h-screen bg-white font-sans flex items-center justify-center p-6 relative overflow-hidden line-bg">
+      <div className="absolute top-8 left-8 opacity-30 bounce-sketch">
         <LinePaw size={60} />
       </div>
-      <div className="absolute top-16 right-12 opacity-30 sketch-animation">
+      <div className="absolute top-16 right-12 opacity-20 sketch-animation">
         <LineHeart size={45} />
       </div>
-      <div className="absolute bottom-16 left-16 opacity-35 bounce-sketch" style={{ animationDelay: '0.6s' }}>
+      <div className="absolute bottom-16 left-16 opacity-25 bounce-sketch" style={{ animationDelay: '0.6s' }}>
         <LineStar size={40} />
       </div>
-      <div className="absolute bottom-8 right-8 opacity-40 sketch-animation" style={{ animationDelay: '1s' }}>
+      <div className="absolute bottom-8 right-8 opacity-30 sketch-animation" style={{ animationDelay: '1s' }}>
         <LinePaw size={55} />
       </div>
-      <div className="absolute top-1/2 right-4 w-40 h-40 opacity-20">
+      <div className="absolute top-1/2 right-4 w-40 h-40 opacity-10">
         <DoodleDecor />
       </div>
-      <div className="absolute bottom-1/3 left-4 w-32 h-32 opacity-15">
+      <div className="absolute bottom-1/3 left-4 w-32 h-32 opacity-8">
         <DoodleDecor />
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        <div className="bg-surface border-3 border-border rounded-2xl hand-drawn-shadow p-8 relative">
+        <div className="bg-white border-3 border-black rounded-2xl hand-drawn-shadow p-8 relative">
           <div className="absolute -top-14 left-1/2 transform -translate-x-1/2">
             <div className="bounce-sketch">
               <LineDog size={130} />
@@ -61,20 +61,20 @@ export default function Login() {
           </div>
 
           <div className="text-center mb-8 pt-12">
-            <h1 className="text-4xl font-bold text-text mb-2 wiggle-line inline-block">欢迎回来~</h1>
-            <p className="text-xl text-muted mt-4">登录你的博客，继续记录生活 ✏️</p>
+            <h1 className="text-4xl font-bold text-black mb-2 wiggle-line inline-block">欢迎回来~</h1>
+            <p className="text-xl text-gray-500 mt-4">登录你的博客，继续记录生活 ✏️</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-lg font-semibold text-text mb-2 ml-1">邮箱地址</label>
+              <label className="block text-lg font-semibold text-black mb-2 ml-1">邮箱地址</label>
               <div className="relative">
-                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted" />
+                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-500" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-14 pr-5 py-4 bg-accent border-3 border-border rounded-xl text-text placeholder-muted focus:outline-none focus:border-primary transition-all text-xl"
+                  className="w-full pl-14 pr-5 py-4 bg-gray-100 border-3 border-black rounded-xl text-black placeholder-gray-400 focus:outline-none focus:border-black transition-all text-xl"
                   placeholder="your@email.com"
                   required
                 />
@@ -82,14 +82,14 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-lg font-semibold text-text mb-2 ml-1">密码</label>
+              <label className="block text-lg font-semibold text-black mb-2 ml-1">密码</label>
               <div className="relative">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted" />
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-500" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-14 pr-5 py-4 bg-accent border-3 border-border rounded-xl text-text placeholder-muted focus:outline-none focus:border-primary transition-all text-xl"
+                  className="w-full pl-14 pr-5 py-4 bg-gray-100 border-3 border-black rounded-xl text-black placeholder-gray-400 focus:outline-none focus:border-black transition-all text-xl"
                   placeholder="••••••••"
                   required
                 />
@@ -97,7 +97,7 @@ export default function Login() {
             </div>
 
             {error && (
-              <div className="bg-red-50 border-3 border-red-400 text-red-600 px-5 py-3 rounded-xl text-lg font-semibold">
+              <div className="bg-gray-100 border-3 border-black text-black px-5 py-3 rounded-xl text-lg font-semibold">
                 {error}
               </div>
             )}
@@ -105,18 +105,18 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary text-white py-4 rounded-xl font-bold text-2xl hover:bg-secondary transition-all disabled:opacity-50 disabled:cursor-not-allowed hand-drawn-shadow"
+              className="w-full bg-black text-white py-4 rounded-xl font-bold text-2xl hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed hand-drawn-shadow"
             >
               {loading ? '登录中...' : '登录 ✨'}
             </button>
           </form>
 
           <div className="mt-8 text-center">
-            <p className="text-xl text-muted">
+            <p className="text-xl text-gray-500">
               还没有账户？{' '}
               <Link
                 to="/register"
-                className="text-primary font-bold hover:text-secondary transition-colors text-2xl"
+                className="text-black font-bold hover:text-gray-600 transition-colors text-2xl underline"
               >
                 立即注册 💕
               </Link>

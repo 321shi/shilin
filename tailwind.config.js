@@ -9,14 +9,14 @@ export default {
     },
     extend: {
       colors: {
-        primary: "#FF8C42",
-        secondary: "#6BA6FF",
-        accent: "#FFF5E6",
-        text: "#2D2D2D",
-        muted: "#8B8B8B",
-        background: "#FFFDF5",
+        primary: "#000000",
+        secondary: "#000000",
+        accent: "#F0F0F0",
+        text: "#000000",
+        muted: "#666666",
+        background: "#FFFFFF",
         surface: "#FFFFFF",
-        border: "#2D2D2D",
+        border: "#000000",
       },
       fontFamily: {
         'sans': ['"Caveat"', '"Noto Sans SC"', 'sans-serif'],
@@ -27,8 +27,8 @@ export default {
         '3xl': '2rem',
       },
       boxShadow: {
-        'line': '4px 4px 0px #2D2D2D',
-        'line-hover': '6px 6px 0px #2D2D2D',
+        'line': '4px 4px 0px #000000',
+        'line-hover': '6px 6px 0px #000000',
       }
     },
   },
