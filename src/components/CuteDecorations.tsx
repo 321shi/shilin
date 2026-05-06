@@ -1,70 +1,114 @@
 import React from 'react';
 
-export const PawPrint = ({ className = '', size = 24 }: { className?: string; size?: number }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={`text-primary/30 ${className}`}
-  >
-    <path d="M12 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-6-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-  </svg>
-);
-
-export const Bone = ({ className = '', size = 24 }: { className?: string; size?: number }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={`text-secondary/40 ${className}`}
-  >
-    <path d="M18 6c-1.1 0-2 .9-2 2 0 .74.4 1.39 1 1.73V14.27c-.6.34-1 .99-1 1.73 0 1.1.9 2 2 2s2-.9 2-2c0-.74-.4-1.39-1-1.73V9.73c.6-.34 1-.99 1-1.73 0-1.1-.9-2-2-2zM6 6c-1.1 0-2 .9-2 2 0 .74.4 1.39 1 1.73v4.54c-.6.34-1 .99-1 1.73 0 1.1.9 2 2 2s2-.9 2-2c0-.74-.4-1.39-1-1.73V9.73c.6-.34 1-.99 1-1.73 0-1.1-.9-2-2-2zm6 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-  </svg>
-);
-
-export const Star = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={`text-primary/40 ${className}`}
-  >
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-  </svg>
-);
-
-export const Heart = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={`text-primary/50 ${className}`}
-  >
-    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-  </svg>
-);
-
-export const CuteDog = ({ className = '', size = 80 }: { className?: string; size?: number }) => (
+export const LinePaw = ({ className = '', size = 28 }) => (
   <svg 
     width={size} 
     height={size} 
     viewBox="0 0 100 100" 
-    className={`${className}`}
+    className={className}
   >
-    <circle cx="50" cy="55" r="30" fill="#FFF8DC" stroke="#4A4A4A" strokeWidth="2"/>
-    <ellipse cx="30" cy="30" rx="12" ry="18" fill="#FFF8DC" stroke="#4A4A4A" strokeWidth="2"/>
-    <ellipse cx="70" cy="30" rx="12" ry="18" fill="#FFF8DC" stroke="#4A4A4A" strokeWidth="2"/>
-    <circle cx="40" cy="50" r="5" fill="#4A4A4A"/>
-    <circle cx="60" cy="50" r="5" fill="#4A4A4A"/>
-    <circle cx="42" cy="48" r="2" fill="#FFFFFF"/>
-    <circle cx="62" cy="48" r="2" fill="#FFFFFF"/>
-    <ellipse cx="50" cy="60" rx="4" ry="3" fill="#4A4A4A"/>
-    <path d="M45 65 Q50 70 55 65" stroke="#4A4A4A" strokeWidth="2" fill="none"/>
-    <ellipse cx="32" cy="58" rx="6" ry="4" fill="#FFB6C1" opacity="0.6"/>
-    <ellipse cx="68" cy="58" rx="6" ry="4" fill="#FFB6C1" opacity="0.6"/>
+    <circle cx="50" cy="65" r="20" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <circle cx="30" cy="35" r="12" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <circle cx="50" cy="30" r="10" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <circle cx="70" cy="35" r="12" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+  </svg>
+);
+
+export const LineBone = ({ className = '', size = 32 }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 100 100" 
+    className={className}
+  >
+    <ellipse cx="25" cy="30" rx="15" ry="18" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <ellipse cx="75" cy="30" rx="15" ry="18" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <ellipse cx="25" cy="70" rx="15" ry="18" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <ellipse cx="75" cy="70" rx="15" ry="18" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <rect x="30" y="35" width="40" height="30" rx="8" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+  </svg>
+);
+
+export const LineStar = ({ className = '', size = 24 }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 100 100" 
+    className={className}
+  >
+    <path 
+      d="M50 5 L61 40 L98 40 L68 60 L79 95 L50 75 L21 95 L32 60 L2 40 L39 40 Z" 
+      fill="none" 
+      stroke="#2D2D2D" 
+      strokeWidth="3" 
+    />
+  </svg>
+);
+
+export const LineHeart = ({ className = '', size = 26 }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 100 100" 
+    className={className}
+  >
+    <path 
+      d="M50 88 C20 60 5 40 20 25 C35 10 50 25 50 25 C50 25 65 10 80 25 C95 40 80 60 50 88 Z" 
+      fill="none" 
+      stroke="#2D2D2D" 
+      strokeWidth="3" 
+    />
+  </svg>
+);
+
+export const LineDog = ({ className = '', size = 110 }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 120 120" 
+    className={className}
+  >
+    <ellipse cx="35" cy="35" rx="18" ry="25" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <ellipse cx="85" cy="35" rx="18" ry="25" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <ellipse cx="60" cy="65" rx="32" ry="28" fill="none" stroke="#2D2D2D" strokeWidth="3" />
+    <circle cx="48" cy="58" r="5" fill="#2D2D2D" />
+    <circle cx="72" cy="58" r="5" fill="#2D2D2D" />
+    <circle cx="50" cy="56" r="2" fill="white" />
+    <circle cx="74" cy="56" r="2" fill="white" />
+    <ellipse cx="60" cy="70" rx="5" ry="4" fill="#2D2D2D" />
+    <path d="M52 78 Q60 85 68 78" stroke="#2D2D2D" strokeWidth="3" fill="none" />
+    <line x1="32" y1="68" x2="42" y2="66" stroke="#2D2D2D" strokeWidth="2" />
+    <line x1="32" y1="72" x2="42" y2="70" stroke="#2D2D2D" strokeWidth="2" />
+    <line x1="78" y1="66" x2="88" y2="68" stroke="#2D2D2D" strokeWidth="2" />
+    <line x1="78" y1="70" x2="88" y2="72" stroke="#2D2D2D" strokeWidth="2" />
+    <circle cx="40" cy="72" r="8" fill="none" stroke="#FF8C42" strokeWidth="2" opacity="0.6" />
+    <circle cx="80" cy="72" r="8" fill="none" stroke="#FF8C42" strokeWidth="2" opacity="0.6" />
+  </svg>
+);
+
+export const DoodleDecor = ({ className = '' }) => (
+  <div className={className}>
+    <svg width="100%" height="100%" viewBox="0 0 200 200">
+      <path d="M10 20 Q30 10, 50 20 T90 20" stroke="#2D2D2D" strokeWidth="2" fill="none" strokeDasharray="5,3" />
+      <path d="M110 40 Q130 30, 150 40 T190 40" stroke="#6BA6FF" strokeWidth="2" fill="none" strokeDasharray="5,3" />
+      <path d="M20 160 Q40 150, 60 160 T100 160" stroke="#FF8C42" strokeWidth="2" fill="none" strokeDasharray="5,3" />
+      <circle cx="170" cy="150" r="8" fill="none" stroke="#2D2D2D" strokeWidth="2" />
+      <circle cx="30" cy="100" r="6" fill="none" stroke="#6BA6FF" strokeWidth="2" />
+      <path d="M140 80 L150 70 L160 85 L170 65" stroke="#FF8C42" strokeWidth="2" fill="none" />
+    </svg>
+  </div>
+);
+
+export const CornerLines = ({ className = '' }) => (
+  <svg 
+    width="120" 
+    height="120" 
+    viewBox="0 0 120 120" 
+    className={className}
+  >
+    <path d="M10 30 L30 30 L30 10" stroke="#2D2D2D" strokeWidth="3" fill="none" />
+    <path d="M90 10 L90 30 L110 30" stroke="#FF8C42" strokeWidth="3" fill="none" />
+    <path d="M10 90 L30 90 L30 110" stroke="#6BA6FF" strokeWidth="3" fill="none" />
+    <path d="M90 110 L90 90 L110 90" stroke="#2D2D2D" strokeWidth="3" fill="none" />
   </svg>
 );

@@ -2,53 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
 
 :root {
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
-  line-height: 1.6;
-  font-weight: 400;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Caveat", "Noto Sans SC", sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
 }
 
-/* 线条小狗风格装饰 */
-.paw-pattern {
-  background-image: radial-gradient(circle, #FFE4E1 1px, transparent 1px);
-  background-size: 30px 30px;
+/* 线条风格装饰 */
+.line-bg {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 30px,
+      rgba(45, 45, 45, 0.03) 30px,
+      rgba(45, 45, 45, 0.03) 31px
+    );
 }
 
-.cute-shadow {
-  box-shadow: 0 8px 30px -4px rgba(255, 182, 193, 0.25), 0 4px 12px -6px rgba(255, 182, 193, 0.15);
+.dashed-border {
+  border: 3px dashed #2D2D2D;
 }
 
-.wiggle {
-  animation: wiggle 0.5s ease-in-out;
+.wiggle-line {
+  position: relative;
 }
 
-@keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-5deg); }
-  75% { transform: rotate(5deg); }
+.wiggle-line::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%232D2D2D' fill='none' stroke-width='3'/%3E%3C/svg%3E");
+  background-size: 100px 10px;
 }
 
-.float {
-  animation: float 3s ease-in-out infinite;
+.hand-drawn-shadow {
+  box-shadow: 4px 4px 0px #2D2D2D;
+  transition: all 0.2s ease;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+.hand-drawn-shadow:hover {
+  box-shadow: 6px 6px 0px #2D2D2D;
+  transform: translate(-2px, -2px);
 }
 
-.bounce-soft {
-  animation: bounce-soft 2s ease-in-out infinite;
+.pencil-texture {
+  filter: url(#pencil-texture);
 }
 
-@keyframes bounce-soft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+@keyframes sketch {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+.sketch-animation {
+  animation: sketch 3s ease-in-out infinite;
+}
+
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+.bounce-sketch {
+  animation: bounce-gentle 2.5s ease-in-out infinite;
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, PenTool, Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
-import { CuteDog, PawPrint, Heart, Star } from '@/components/CuteDecorations';
+import { LineDog, LinePaw, LineHeart, LineStar, DoodleDecor, CornerLines } from '@/components/CuteDecorations';
 
 interface Post {
   id: string;
@@ -64,115 +64,121 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans relative overflow-hidden">
-      <div className="absolute top-20 left-10 float opacity-50">
-        <PawPrint size={50} />
+    <div className="min-h-screen bg-background font-sans relative overflow-hidden line-bg">
+      <div className="absolute top-20 left-8 opacity-30 bounce-sketch">
+        <LinePaw size={70} />
       </div>
-      <div className="absolute top-40 right-20 bounce-soft opacity-50">
-        <Heart size={40} />
+      <div className="absolute top-32 right-10 opacity-25 sketch-animation">
+        <LineHeart size={55} />
       </div>
-      <div className="absolute bottom-40 left-20 bounce-soft opacity-50" style={{ animationDelay: '0.7s' }}>
-        <Star size={35} />
+      <div className="absolute bottom-32 left-12 opacity-28 bounce-sketch" style={{ animationDelay: '0.7s' }}>
+        <LineStar size={50} />
       </div>
-      <div className="absolute bottom-20 right-10 float opacity-50" style={{ animationDelay: '1.2s' }}>
-        <PawPrint size={45} />
+      <div className="absolute bottom-16 right-8 opacity-35 sketch-animation" style={{ animationDelay: '1.2s' }}>
+        <LinePaw size={65} />
+      </div>
+      <div className="absolute top-1/4 right-4 w-48 h-48 opacity-15">
+        <DoodleDecor />
+      </div>
+      <div className="absolute bottom-1/4 left-4 w-44 h-44 opacity-12">
+        <DoodleDecor />
       </div>
 
-      <header className="bg-surface border-b-2 border-border sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-6 py-4">
+      <header className="bg-surface border-b-3 border-border sticky top-0 z-50">
+        <div className="max-w-4xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center text-white shadow-soft">
-                <BookOpen className="w-7 h-7" />
+            <div className="flex items-center gap-5">
+              <div className="w-16 h-16 bg-accent border-3 border-border rounded-2xl flex items-center justify-center hand-drawn-shadow">
+                <BookOpen className="w-8 h-8 text-text" />
               </div>
               <div>
-                <h1 className="text-xl font-extrabold text-text">{user.name}</h1>
-                <p className="text-sm text-muted">{user.email}</p>
+                <h1 className="text-2xl font-bold text-text">{user.name}</h1>
+                <p className="text-lg text-muted">{user.email}</p>
               </div>
             </div>
             <button
               onClick={logout}
-              className="flex items-center gap-2 px-5 py-2.5 text-muted hover:text-primary transition-all hover:bg-accent/30 rounded-xl font-semibold"
+              className="flex items-center gap-3 px-6 py-3 text-muted hover:text-text transition-all hover:bg-accent rounded-xl font-semibold border-2 border-border hover:border-primary text-xl"
             >
-              <LogOut className="w-5 h-5" />
-              <span className="text-sm">退出</span>
+              <LogOut className="w-6 h-6" />
+              <span>退出</span>
             </button>
           </div>
         </div>
       </header>
 
-      <section className="max-w-4xl mx-auto px-6 py-12">
+      <section className="max-w-4xl mx-auto px-6 py-14">
         <div className="text-center">
-          <div className="mb-6">
-            <div className="inline-block bounce-soft">
-              <CuteDog size={100} />
+          <div className="mb-8">
+            <div className="inline-block bounce-sketch">
+              <LineDog size={140} />
             </div>
           </div>
-          <p className="text-primary font-bold mb-3 tracking-wide uppercase text-sm">欢迎回来！</p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-text mb-4">
+          <p className="text-primary font-bold mb-4 tracking-wide uppercase text-xl">欢迎回来~</p>
+          <h2 className="text-5xl font-bold text-text mb-4 wiggle-line inline-block">
             我的个人博客
           </h2>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
-            在这里记录一切我想记录的。生活、学习、思考与成长 🐾
+          <p className="text-2xl text-muted max-w-2xl mx-auto mt-6">
+            在这里记录一切我想记录的。生活、学习、思考与成长 ✏️
           </p>
         </div>
       </section>
 
       <main className="max-w-4xl mx-auto px-6 pb-16 relative z-10">
-        <div className="flex items-center gap-3 mb-8">
-          <PenTool className="w-6 h-6 text-primary" />
-          <h3 className="text-2xl font-extrabold text-text">最新文章</h3>
+        <div className="flex items-center gap-4 mb-10">
+          <PenTool className="w-8 h-8 text-primary" />
+          <h3 className="text-3xl font-bold text-text">最新文章</h3>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-7">
           {posts.map((post, index) => (
             <article
               key={post.id}
-              className="bg-surface border-2 border-border rounded-3xl p-7 hover:border-primary/40 hover:shadow-cute transition-all cursor-pointer group"
+              className="bg-surface border-3 border-border rounded-2xl p-7 hover:border-primary hover:border-secondary transition-all cursor-pointer group hand-drawn-shadow"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="flex flex-wrap items-center gap-4 mb-4">
-                <span className="px-4 py-1.5 bg-primary/20 text-primary text-xs font-bold rounded-full">
+              <div className="flex flex-wrap items-center gap-5 mb-5">
+                <span className="px-5 py-2 bg-accent border-2 border-primary text-primary text-base font-bold rounded-full">
                   {post.category}
                 </span>
-                <span className="flex items-center gap-1.5 text-muted text-sm font-semibold">
-                  <Calendar className="w-4 h-4" />
+                <span className="flex items-center gap-2 text-muted text-lg font-semibold">
+                  <Calendar className="w-5 h-5" />
                   {post.date}
                 </span>
-                <span className="flex items-center gap-1.5 text-muted text-sm font-semibold">
-                  <Clock className="w-4 h-4" />
+                <span className="flex items-center gap-2 text-muted text-lg font-semibold">
+                  <Clock className="w-5 h-5" />
                   {post.readTime}
                 </span>
               </div>
-              <h4 className="text-xl font-extrabold text-text mb-3 group-hover:text-primary transition-colors">
+              <h4 className="text-2xl font-bold text-text mb-4 group-hover:text-primary transition-colors">
                 {post.title}
               </h4>
-              <p className="text-muted leading-relaxed mb-5">
+              <p className="text-muted leading-relaxed mb-5 text-xl">
                 {post.excerpt}
               </p>
-              <div className="flex items-center gap-2 text-primary font-bold text-sm">
+              <div className="flex items-center gap-3 text-primary font-bold text-xl">
                 阅读全文
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </div>
             </article>
           ))}
         </div>
 
-        <div className="mt-10 text-center">
-          <button className="px-10 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-bold text-lg hover:opacity-90 transition-all shadow-soft hover:shadow-cute transform hover:-translate-y-0.5">
+        <div className="mt-12 text-center">
+          <button className="px-12 py-5 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-bold text-2xl hover:opacity-90 transition-all hand-drawn-shadow">
             写新文章 ✨
           </button>
         </div>
       </main>
 
-      <footer className="border-t-2 border-border bg-surface py-10">
+      <footer className="border-t-3 border-border bg-surface py-12">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="flex justify-center gap-3 mb-4">
-            <PawPrint size={24} className="inline" />
-            <Heart size={24} className="inline" />
-            <Star size={24} className="inline" />
+          <div className="flex justify-center gap-4 mb-6">
+            <LinePaw size={35} className="inline" />
+            <LineHeart size={32} className="inline" />
+            <LineStar size={30} className="inline" />
           </div>
-          <p className="text-muted text-sm font-semibold">
+          <p className="text-muted text-xl font-semibold">
             © 2024 {user.name} 的博客。用心记录生活 💕
           </p>
         </div>
