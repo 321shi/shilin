@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, Zap, Star } from 'lucide-react';
+import { Mail, Lock, BookOpen } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function Login() {
@@ -21,80 +21,54 @@ export default function Login() {
       if (success) {
         navigate('/');
       } else {
-        setError('邮箱或密码不正确!');
+        setError('邮箱或密码不正确');
       }
     } catch {
-      setError('登录失败，请重试!');
+      setError('登录失败，请重试');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans relative overflow-x-hidden flex items-center justify-center p-6">
-      {/* 装饰性点点背景 */}
-      <div className="fixed inset-0 opacity-20" style={{
-        backgroundImage: 'radial-gradient(#1A1A1A 1px, transparent 1px)',
-        backgroundSize: '20px 20px'
-      }}></div>
-
-      <div className="relative z-10 w-full max-w-lg">
-        {/* 装饰元素 */}
-        <div className="absolute -top-8 -left-8 w-20 h-20 bg-accent border-4 border-border shadow-comic rotate-[-15deg] flex items-center justify-center">
-          <span className="font-comic text-xl text-border">BAM!</span>
-        </div>
-        <div className="absolute -top-6 -right-6 w-16 h-16 bg-secondary border-4 border-border shadow-comic-sm rotate-[12deg] flex items-center justify-center">
-          <Star className="w-8 h-8 text-white" />
-        </div>
-
-        <div className="bg-white border-4 border-border shadow-comic p-10 relative">
+    <div className="min-h-screen bg-background font-sans flex items-center justify-center p-6">
+      <div className="w-full max-w-md">
+        <div className="bg-surface border border-border rounded-2xl shadow-soft p-8">
           <div className="text-center mb-10">
             <div className="inline-block mb-6">
-              <div className="w-24 h-24 bg-primary border-4 border-border shadow-comic flex items-center justify-center rotate-[-5deg] mx-auto">
-                <span className="text-white font-comic text-5xl">博!</span>
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto text-white">
+                <BookOpen className="w-8 h-8" />
               </div>
             </div>
-            <h1 className="text-6xl font-comic text-text mb-3 tracking-wider">
-              欢迎回来!
-            </h1>
-            <p className="text-2xl font-bold text-secondary">
-              登录你的博客!
-            </p>
+            <h1 className="text-3xl font-bold text-text mb-2">欢迎回来</h1>
+            <p className="text-muted">登录你的博客，继续记录生活</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-7">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-2xl font-comic text-text mb-3 tracking-wide">
-                邮箱地址!
-              </label>
+              <label className="block text-sm font-semibold text-text mb-2">邮箱地址</label>
               <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                  <Mail className="w-7 h-7 text-secondary" />
-                </div>
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-14 pr-5 py-4 bg-white border-4 border-border shadow-comic-sm text-xl font-bold text-text focus:outline-none focus:border-secondary focus:shadow-comic transition-all"
-                  placeholder="YOUR@EMAIL.COM"
+                  className="w-full pl-12 pr-4 py-3 bg-background border border-border rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  placeholder="your@email.com"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-2xl font-comic text-text mb-3 tracking-wide">
-                密码!
-              </label>
+              <label className="block text-sm font-semibold text-text mb-2">密码</label>
               <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                  <Lock className="w-7 h-7 text-primary" />
-                </div>
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-14 pr-5 py-4 bg-white border-4 border-border shadow-comic-sm text-xl font-bold text-text focus:outline-none focus:border-primary focus:shadow-comic transition-all"
+                  className="w-full pl-12 pr-4 py-3 bg-background border border-border rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   placeholder="••••••••"
                   required
                 />
@@ -102,7 +76,7 @@ export default function Login() {
             </div>
 
             {error && (
-              <div className="bg-accent text-text px-6 py-4 border-4 border-border shadow-comic text-xl font-bold">
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
                 {error}
               </div>
             )}
@@ -110,26 +84,20 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-secondary text-text py-5 border-4 border-border shadow-comic font-comic text-3xl tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+              className="w-full bg-primary text-white py-3.5 rounded-xl font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? '登录中...' : (
-                <>
-                  登录!
-                  <Zap className="w-8 h-8" />
-                </>
-              )}
+              {loading ? '登录中...' : '登录'}
             </button>
           </form>
 
-          <div className="mt-10 text-center">
-            <p className="text-xl font-bold text-text">
-              还没有账户?{' '}
+          <div className="mt-8 text-center">
+            <p className="text-muted">
+              还没有账户？{' '}
               <Link
                 to="/register"
-                className="text-primary font-comic text-2xl hover:underline inline-flex items-center gap-2"
+                className="text-primary font-semibold hover:underline"
               >
-                立即注册!
-                <Zap className="w-6 h-6" />
+                立即注册
               </Link>
             </p>
           </div>

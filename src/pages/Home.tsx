@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, LogOut, PenTool, Calendar, Clock, Zap, Star, Sparkles } from 'lucide-react';
+import { User, LogOut, PenTool, Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface Post {
@@ -10,45 +10,40 @@ interface Post {
   date: string;
   readTime: string;
   category: string;
-  color: string;
 }
 
 const samplePosts: Post[] = [
   {
     id: '1',
-    title: '关于生活的思考与记录!',
-    excerpt: '生活中的每一个瞬间都值得被记录。今天我想分享一些最近的想法和感悟...',
+    title: '关于生活的思考与记录',
+    excerpt: '生活中的每一个瞬间都值得被记录。今天我想分享一些最近的想法和感悟，希望能给你带来一点启发。',
     date: '2024年1月15日',
     readTime: '5 分钟',
-    category: '生活随笔',
-    color: '#FFC107'
+    category: '生活随笔'
   },
   {
     id: '2',
-    title: '探索编程的艺术!',
-    excerpt: '编程不仅仅是写代码，更是一种创造性的表达。让我们一起探索其中的奥秘...',
+    title: '探索编程的艺术',
+    excerpt: '编程不仅仅是写代码，更是一种创造性的表达。让我们一起探索其中的奥秘，发现技术之美。',
     date: '2024年1月10日',
     readTime: '8 分钟',
-    category: '技术分享',
-    color: '#FF9800'
+    category: '技术分享'
   },
   {
     id: '3',
-    title: '阅读带来的改变!',
-    excerpt: '最近读完了几本书，每一本都给我带来了不同的启发。想和大家分享一下...',
+    title: '阅读带来的改变',
+    excerpt: '最近读完了几本书，每一本都给我带来了不同的启发。想和大家分享一下阅读的快乐。',
     date: '2024年1月5日',
     readTime: '6 分钟',
-    category: '读书笔记',
-    color: '#FFEB3B'
+    category: '读书笔记'
   },
   {
     id: '4',
-    title: '旅行的意义!',
-    excerpt: '去年去了几个地方，看到了不一样的风景，也遇到了有趣的人...',
+    title: '旅行的意义',
+    excerpt: '去年去了几个地方，看到了不一样的风景，也遇到了有趣的人。记录下这些美好的回忆。',
     date: '2023年12月28日',
     readTime: '7 分钟',
-    category: '旅行日记',
-    color: '#FFD54F'
+    category: '旅行日记'
   }
 ];
 
@@ -68,131 +63,100 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans relative overflow-x-hidden">
-      {/* 装饰性点点背景 */}
-      <div className="fixed inset-0 opacity-20" style={{
-        backgroundImage: 'radial-gradient(#1A1A1A 1px, transparent 1px)',
-        backgroundSize: '20px 20px'
-      }}></div>
-
-      <div className="relative z-10">
-        {/* Header */}
-        <header className="border-b-4 border-border bg-white">
-          <div className="max-w-5xl mx-auto px-6 py-6">
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-20 h-20 bg-secondary border-4 border-border shadow-comic flex items-center justify-center rotate-[-3deg]">
-                  <User className="w-10 h-10 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-4xl font-comic text-text tracking-wider">{user.name.toUpperCase()}!</h1>
-                  <p className="text-lg font-bold text-secondary">{user.email}</p>
-                </div>
+    <div className="min-h-screen bg-background font-sans">
+      {/* Header */}
+      <header className="bg-surface border-b border-border sticky top-0 z-50">
+        <div className="max-w-4xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center text-white">
+                <BookOpen className="w-6 h-6" />
               </div>
-              <button
-                onClick={logout}
-                className="flex items-center gap-2 px-6 py-3 bg-accent border-4 border-border shadow-comic font-comic text-xl hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform"
-              >
-                <LogOut className="w-6 h-6" />
-                <span>EXIT!</span>
-              </button>
+              <div>
+                <h1 className="text-xl font-bold text-text">{user.name}</h1>
+                <p className="text-sm text-muted">{user.email}</p>
+              </div>
             </div>
-          </div>
-        </header>
-
-        {/* Hero Section */}
-        <section className="max-w-5xl mx-auto px-6 py-12">
-          <div className="relative">
-            {/* 爆炸装饰 */}
-            <div className="absolute -top-6 -left-6 w-24 h-24 bg-accent border-4 border-border shadow-comic rotate-[-12deg] flex items-center justify-center">
-              <span className="font-comic text-2xl text-border">POW!</span>
-            </div>
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary border-4 border-border shadow-comic rotate-[15deg] flex items-center justify-center">
-              <Star className="w-10 h-10 text-white" />
-            </div>
-
-            <div className="bg-white border-4 border-border shadow-comic p-10 relative">
-              <div className="text-center">
-              <p className="text-xl font-bold text-secondary mb-3 uppercase tracking-wider">欢迎来到</p>
-              <h2 className="text-7xl font-comic text-text mb-4 tracking-wider leading-tight">
-                我的个人
-                <span className="text-primary"> 博客!</span>
-              </h2>
-              <p className="text-2xl font-bold text-text">
-                在这里记录一切我想记录的! <Sparkles className="inline w-8 h-8 text-primary ml-2" />
-              </p>
-            </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Posts Section */}
-        <main className="max-w-5xl mx-auto px-6 pb-16">
-          <div className="flex items-center gap-4 mb-10">
-            <div className="w-16 h-16 bg-primary border-4 border-border shadow-comic-sm flex items-center justify-center rotate-[-5deg]">
-              <PenTool className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-5xl font-comic text-text tracking-wider">最新文章!</h3>
-          </div>
-
-          <div className="space-y-8">
-            {posts.map((post, index) => (
-              <article
-                key={post.id}
-                className="group cursor-pointer"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="bg-white border-4 border-border shadow-comic p-6 hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform">
-                  <div className="flex flex-wrap items-center gap-4 mb-4">
-                    <span
-                      className="px-4 py-2 text-text font-comic text-lg border-4 border-border shadow-comic-sm"
-                      style={{ backgroundColor: post.color }}
-                    >
-                      {post.category.toUpperCase()}
-                    </span>
-                    <span className="flex items-center gap-2 font-bold text-lg">
-                      <Calendar className="w-6 h-6 text-secondary" />
-                      {post.date}
-                    </span>
-                    <span className="flex items-center gap-2 font-bold text-lg">
-                      <Clock className="w-6 h-6 text-primary" />
-                      {post.readTime}
-                    </span>
-                  </div>
-                  <h4 className="text-4xl font-comic text-text mb-4 group-hover:text-secondary transition-colors tracking-wide">
-                    {post.title}
-                  </h4>
-                  <p className="text-xl text-text leading-relaxed mb-6 font-bold">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center gap-3 text-2xl font-comic text-primary">
-                    <span>阅读全文!</span>
-                    <Zap className="w-8 h-8" />
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* Add Post Button */}
-          <div className="mt-12 text-center">
-            <button className="px-12 py-6 bg-primary text-white border-4 border-border shadow-comic font-comic text-3xl tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-comic-sm transition-transform">
-              写新文章! <Zap className="inline w-8 h-8 ml-2" />
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 px-4 py-2 text-muted hover:text-primary transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="text-sm font-medium">退出</span>
             </button>
           </div>
-        </main>
+        </div>
+      </header>
 
-        {/* Footer */}
-        <footer className="border-t-4 border-border bg-white py-8">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <div className="inline-block bg-accent px-8 py-4 border-4 border-border shadow-comic">
-              <p className="text-2xl font-comic text-border">
-                © 2024 {user.name.toUpperCase()}'S BLOG! BOOM!
+      {/* Hero Section */}
+      <section className="max-w-4xl mx-auto px-6 py-16">
+        <div className="text-center">
+          <p className="text-primary font-semibold mb-4 tracking-wide uppercase text-sm">欢迎回来</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-text mb-6">
+            我的个人博客
+          </h2>
+          <p className="text-lg text-muted max-w-2xl mx-auto">
+            在这里记录一切我想记录的。生活、学习、思考与成长。
+          </p>
+        </div>
+      </section>
+
+      {/* Posts Section */}
+      <main className="max-w-4xl mx-auto px-6 pb-20">
+        <div className="flex items-center gap-3 mb-10">
+          <PenTool className="w-5 h-5 text-primary" />
+          <h3 className="text-2xl font-bold text-text">最新文章</h3>
+        </div>
+
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <article
+              key={post.id}
+              className="bg-surface border border-border rounded-2xl p-6 hover:border-primary/30 hover:shadow-medium transition-all cursor-pointer"
+            >
+              <div className="flex flex-wrap items-center gap-4 mb-3">
+                <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
+                  {post.category}
+                </span>
+                <span className="flex items-center gap-1.5 text-muted text-sm">
+                  <Calendar className="w-4 h-4" />
+                  {post.date}
+                </span>
+                <span className="flex items-center gap-1.5 text-muted text-sm">
+                  <Clock className="w-4 h-4" />
+                  {post.readTime}
+                </span>
+              </div>
+              <h4 className="text-xl font-bold text-text mb-3 group-hover:text-primary transition-colors">
+                {post.title}
+              </h4>
+              <p className="text-muted leading-relaxed mb-4">
+                {post.excerpt}
               </p>
-            </div>
-          </div>
-        </footer>
-      </div>
+              <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                阅读全文
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Add Post Button */}
+        <div className="mt-12 text-center">
+          <button className="px-8 py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-soft hover:shadow-medium">
+            写新文章
+          </button>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-border bg-surface py-10">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <p className="text-muted text-sm">
+            © 2024 {user.name} 的博客。用心记录生活。
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
