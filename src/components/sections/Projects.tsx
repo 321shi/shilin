@@ -19,10 +19,22 @@ export default function Projects() {
           {siteData.projects.map((project) => (
             <div
               key={project.id}
-              className="glass p-6 hover:scale-[1.02] transition-all duration-300 group"
+              className="glass-card p-6 hover:scale-[1.02] transition-all duration-300 group"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: '20px'
+              }}
             >
-              <div className="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl h-48 mb-6 flex items-center justify-center">
-                <div className="bg-background/50 backdrop-blur-sm rounded-lg w-32 h-32 flex items-center justify-center">
+              <div className="bg-gradient-to-br from-primary/25 to-secondary/25 rounded-2xl h-48 mb-6 flex items-center justify-center overflow-hidden">
+                <div className="glass-card rounded-xl w-32 h-32 flex items-center justify-center" style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
+                  backdropFilter: 'blur(15px)',
+                  WebkitBackdropFilter: 'blur(15px)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                }}>
                   <span className="text-5xl">🚀</span>
                 </div>
               </div>
@@ -39,7 +51,13 @@ export default function Projects() {
                 {project.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-surface/50 rounded-full text-xs font-medium text-muted"
+                    className="px-3 py-1 glass-card rounded-full text-xs font-medium text-muted"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)'
+                    }}
                   >
                     {tag}
                   </span>

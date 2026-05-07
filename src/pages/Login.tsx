@@ -254,7 +254,7 @@ export default function Login() {
 
         <div
           ref={loginFormRef}
-          className="login-form"
+          className={`login-form glow-border ${isLampOn ? 'active' : ''}`}
           style={{
             opacity: isLampOn ? 1 : 0,
             transform: isLampOn ? 'scale(1) translateY(0)' : 'scale(0.8) translateY(20px)',
@@ -296,24 +296,27 @@ export default function Login() {
                 disabled={isLoading}
                 style={{
                   width: '100%',
-                  padding: '0.75rem 1rem',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '2px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '10px',
+                  padding: '0.875rem 1.25rem',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '12px',
                   color: '#fff',
                   fontSize: '1rem',
                   transition: 'all 0.3s ease',
                   boxSizing: 'border-box',
+                  outline: 'none',
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = glowColor;
-                  e.target.style.boxShadow = `0 0 10px ${glowColor}`;
-                  e.target.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.target.style.boxShadow = `0 0 0 2px ${glowColor}33, 0 0 20px ${glowColor}22`;
+                  e.target.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%)';
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)';
                   e.target.style.boxShadow = 'none';
-                  e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.target.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%)';
                 }}
               />
             </div>
@@ -342,25 +345,28 @@ export default function Login() {
                   disabled={isLoading}
                   style={{
                     width: '100%',
-                    padding: '0.75rem 1rem',
-                    paddingRight: '3rem',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '2px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '10px',
+                    padding: '0.875rem 1.25rem',
+                    paddingRight: '3.5rem',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    borderRadius: '12px',
                     color: '#fff',
                     fontSize: '1rem',
                     transition: 'all 0.3s ease',
                     boxSizing: 'border-box',
+                    outline: 'none',
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = glowColor;
-                    e.target.style.boxShadow = `0 0 10px ${glowColor}`;
-                    e.target.style.background = 'rgba(255, 255, 255, 0.08)';
+                    e.target.style.boxShadow = `0 0 0 2px ${glowColor}33, 0 0 20px ${glowColor}22`;
+                    e.target.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%)';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)';
                     e.target.style.boxShadow = 'none';
-                    e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+                    e.target.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%)';
                   }}
                 />
                 <button
@@ -385,27 +391,35 @@ export default function Login() {
               disabled={isLoading}
               style={{
                 width: '100%',
-                padding: '0.875rem',
-                background: isLoading ? '#666' : `linear-gradient(135deg, ${glowColor}, ${glowColorDark})`,
+                padding: '1rem',
+                background: isLoading 
+                  ? 'rgba(100, 100, 100, 0.4)' 
+                  : `linear-gradient(135deg, ${glowColor}, ${glowColorDark})`,
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
                 border: 'none',
-                borderRadius: '10px',
+                borderRadius: '14px',
                 color: '#fff',
                 fontSize: '1rem',
                 fontWeight: 600,
                 cursor: isLoading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
-                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+                boxShadow: isLoading 
+                  ? '0 4px 15px rgba(0, 0, 0, 0.2)' 
+                  : `0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05) inset`,
                 marginTop: '0.5rem',
               }}
               onMouseEnter={(e) => {
                 if (!isLoading) {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = `0 6px 20px rgba(0, 0, 0, 0.3), 0 0 20px ${glowColor}`;
+                  e.currentTarget.style.boxShadow = `0 8px 30px rgba(0, 0, 0, 0.35), 0 0 25px ${glowColor}44`;
                 }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+                e.currentTarget.style.boxShadow = isLoading 
+                  ? '0 4px 15px rgba(0, 0, 0, 0.2)' 
+                  : `0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05) inset`;
               }}
             >
               {isLoading ? '登录中...' : '登录'}
@@ -456,12 +470,24 @@ export default function Login() {
 
       <style>{`
         .login-form {
-          background: rgba(18, 25, 33, 0.95);
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset;
           padding: 3rem 2.5rem;
-          border-radius: 20px;
+          border-radius: 24px;
           min-width: 320px;
-          border: 2px solid transparent;
-          box-shadow: 0 0 0px rgba(255, 255, 255, 0);
+        }
+        
+        .login-form.glow-border.active {
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 30px var(--glow-color, rgba(99, 102, 241, 0.3));
         }
         
         .form-group {

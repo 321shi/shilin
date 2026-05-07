@@ -14,10 +14,16 @@ export default function About() {
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <div className="glass p-8">
+            <div className="glass-card p-8" style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              borderRadius: '20px'
+            }}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-primary/20 rounded-lg">
-                  <Code className="w-5 h-5 text-primary" />
+                <div className="p-3 bg-primary/20 rounded-xl glass-card" style={{ backdropFilter: 'blur(10px)' }}>
+                  <Code className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">个人简介</h3>
               </div>
@@ -26,13 +32,25 @@ export default function About() {
               </div>
             </div>
 
-            <div className="glass p-8">
+            <div className="glass-card p-8" style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              borderRadius: '20px'
+            }}>
               <h3 className="text-xl font-bold mb-6">技能标签</h3>
               <div className="flex flex-wrap gap-3">
                 {siteData.skills.map((skill, index) => (
                   <span
                     key={index}
-                    className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-default"
+                    className="px-4 py-2 glass-card rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-default"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.12) 100%)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(99, 102, 241, 0.25)'
+                    }}
                   >
                     {skill}
                   </span>
@@ -42,10 +60,16 @@ export default function About() {
           </div>
 
           <div className="space-y-6">
-            <div className="glass p-8">
+            <div className="glass-card p-8" style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              borderRadius: '20px'
+            }}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-secondary/20 rounded-lg">
-                  <Briefcase className="w-5 h-5 text-secondary" />
+                <div className="p-3 bg-secondary/20 rounded-xl glass-card" style={{ backdropFilter: 'blur(10px)' }}>
+                  <Briefcase className="w-6 h-6 text-secondary" />
                 </div>
                 <h3 className="text-xl font-bold">工作经历</h3>
               </div>
@@ -69,10 +93,16 @@ export default function About() {
               </div>
             </div>
 
-            <div className="glass p-8">
+            <div className="glass-card p-8" style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              borderRadius: '20px'
+            }}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-accent/20 rounded-lg">
-                  <GraduationCap className="w-5 h-5 text-accent" />
+                <div className="p-3 bg-accent/20 rounded-xl glass-card" style={{ backdropFilter: 'blur(10px)' }}>
+                  <GraduationCap className="w-6 h-6 text-accent" />
                 </div>
                 <h3 className="text-xl font-bold">教育背景</h3>
               </div>

@@ -6,9 +6,14 @@ export default function Hero() {
     <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20">
       <div className="max-w-4xl mx-auto text-center">
         <div className="mb-8 animate-float">
-          <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-primary via-secondary to-accent p-1 shadow-2xl">
-            <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-              <span className="text-5xl">👨‍💻</span>
+          <div className="w-36 h-36 mx-auto rounded-full bg-gradient-to-br from-primary via-secondary to-accent p-1.5 shadow-2xl">
+            <div className="w-full h-full rounded-full glass-card flex items-center justify-center" style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.05) inset'
+            }}>
+              <span className="text-6xl">👨‍💻</span>
             </div>
           </div>
         </div>
@@ -36,7 +41,10 @@ export default function Hero() {
               e.preventDefault();
               document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+            className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+            style={{
+              boxShadow: '0 8px 32px rgba(99, 102, 241, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.05) inset'
+            }}
           >
             了解更多
           </a>
@@ -46,7 +54,13 @@ export default function Hero() {
               e.preventDefault();
               document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-4 glass text-text rounded-xl font-semibold hover:bg-surface/80 transition-all duration-300 hover:scale-105"
+            className="px-8 py-4 glass-card text-text rounded-2xl font-semibold transition-all duration-300 hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.12)'
+            }}
           >
             联系我
           </a>

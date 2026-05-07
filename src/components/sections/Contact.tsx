@@ -41,7 +41,13 @@ export default function Contact() {
 
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
-            <div className="glass p-8">
+            <div className="glass-card p-8" style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              borderRadius: '20px'
+            }}>
               <h3 className="text-xl font-bold mb-6">社交媒体</h3>
               <div className="space-y-4">
                 {siteData.social.map((link) => {
@@ -52,9 +58,20 @@ export default function Contact() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface/50 transition-all duration-300 group"
+                      className="flex items-center gap-4 p-4 rounded-xl glass-card transition-all duration-300 group"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)'
+                      }}
                     >
-                      <div className="p-3 bg-primary/20 rounded-lg group-hover:bg-primary/30 transition-colors">
+                      <div className="p-3 glass-card rounded-xl group-hover:bg-primary/25 transition-colors" style={{
+                        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.15) 100%',
+                        backdropFilter: 'blur(8px)',
+                        WebkitBackdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(99, 102, 241, 0.25)'
+                      }}>
                         <Icon className="w-5 h-5 text-primary" />
                       </div>
                       <div>
@@ -68,7 +85,13 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="glass p-8">
+          <div className="glass-card p-8" style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderRadius: '20px'
+          }}>
             <h3 className="text-xl font-bold mb-6">发送消息</h3>
             
             {isSubmitted ? (
@@ -89,8 +112,14 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="w-full px-4 py-3 bg-surface/50 border border-border rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                    className="w-full px-4 py-3 glass-input rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                     placeholder="请输入你的姓名"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)'
+                    }}
                   />
                 </div>
                 <div>
@@ -103,8 +132,14 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="w-full px-4 py-3 bg-surface/50 border border-border rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                    className="w-full px-4 py-3 glass-input rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                     placeholder="example@email.com"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)'
+                    }}
                   />
                 </div>
                 <div>
@@ -117,13 +152,22 @@ export default function Contact() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 bg-surface/50 border border-border rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                    className="w-full px-4 py-3 glass-input rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
                     placeholder="请输入你的留言..."
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)'
+                    }}
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                  className="w-full px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                  style={{
+                    boxShadow: '0 8px 32px rgba(99, 102, 241, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.05) inset'
+                  }}
                 >
                   <Send size={18} />
                   发送消息

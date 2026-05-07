@@ -19,10 +19,22 @@ export default function Blog() {
           {siteData.posts.map((post) => (
             <article
               key={post.id}
-              className="glass p-6 hover:border-primary/50 transition-all duration-300 cursor-pointer group"
+              className="glass-card p-6 hover:border-primary/40 transition-all duration-300 cursor-pointer group"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: '20px'
+              }}
             >
               <div className="flex flex-wrap items-center gap-4 mb-3">
-                <span className="px-3 py-1 bg-gradient-to-r from-primary/20 to-secondary/20 text-primary text-xs font-semibold rounded-full">
+                <span className="px-3 py-1 glass-card text-primary text-xs font-semibold rounded-full" style={{
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(139, 92, 246, 0.12) 100%)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(99, 102, 241, 0.25)'
+                }}>
                   {post.category}
                 </span>
                 <span className="flex items-center gap-1.5 text-muted text-sm">
@@ -52,7 +64,12 @@ export default function Blog() {
         </div>
 
         <div className="text-center mt-12">
-          <button className="px-8 py-4 glass text-text rounded-xl font-semibold hover:bg-surface/80 transition-all duration-300 hover:scale-105">
+          <button className="px-8 py-4 glass-card text-text rounded-2xl font-semibold transition-all duration-300 hover:scale-105" style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.12)'
+          }}>
             查看更多文章
           </button>
         </div>

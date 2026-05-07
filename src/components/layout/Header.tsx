@@ -21,7 +21,9 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass">
+    <header className="fixed top-0 left-0 right-0 z-50 glass-strong" style={{ 
+      borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
+    }}>
       <nav className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <a href="#hero" className="text-2xl font-bold gradient-text">
