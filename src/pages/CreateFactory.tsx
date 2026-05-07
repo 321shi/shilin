@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useJobs } from '../hooks/useJobs';
 import { LineArrowLeft, LineStar, LineHeart } from '../components/CuteDecorations';
+import { parseRecruitmentText } from '../lib/jobUtils';
 
 export default function CreateFactory() {
   const navigate = useNavigate();
@@ -16,6 +17,24 @@ export default function CreateFactory() {
     contact: '',
     phone: ''
   });
+
+  const [pasteText, setPasteText] = useState('');
+
+  const handleSmartPaste = () => {
+    if (!pasteText.trim()) return;
+
+    const parsed = parseRecruitmentText(pasteText);
+    
+    setFormData(prev => ({
+      ...prev,
+      name: parsed.name || prev.name,
+      location: parsed.location || prev.location,
+      positions: parsed.positions?.join('\n') || prev.positions,
+      welfare: parsed.welfare || prev.welfare,
+      salary: parsed.salary || prev.salary,
+      phone: parsed.phone || prev.phone
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +73,25 @@ export default function CreateFactory() {
           <p className="text-muted mb-8">填写厂区招聘信息</p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="border-2 border-dashed border-primary p-6">
+              <label className="block text-sm font-medium mb-2">✨ 智能粘贴</label>
+              <p className="text-xs text-muted mb-3">粘贴招聘文案，自动解析填充表单</p>
+              <textarea
+                value={pasteText}
+                onChange={(e) => setPasteText(e.target.value)}
+                placeholder="粘贴招聘文案到这里..."
+                rows={4}
+                className="w-full border-2 border-primary px-4 py-3 focus:outline-none focus:border-muted resize-none mb-3"
+              />
+              <button
+                type="button"
+                onClick={handleSmartPaste}
+                className="w-full border-2 border-primary py-3 font-medium hover:bg-primary hover:text-white transition-colors"
+              >
+                🤖 智能解析填充
+              </button>
+            </div>
+
             <div>
               <label className="block text-sm font-medium mb-2">厂区名称 *</label>
               <input

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useJobs } from '../hooks/useJobs';
 import { LineArrowLeft, LineStar, LineHeart, LinePaw } from '../components/CuteDecorations';
+import { exportJobsToExcel, exportDailyJobsToExcel, exportFactoriesToExcel } from '../lib/jobUtils';
 
 export default function Jobs() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function Jobs() {
         <h1 className="text-4xl font-bold mb-2">劳务信息</h1>
         <p className="text-muted mb-8">兼职日结 · 厂区招聘</p>
 
-        <div className="flex gap-4 mb-12">
+        <div className="flex flex-wrap gap-4 mb-12">
           <button
             onClick={() => navigate('/create-daily-job')}
             className="bg-primary text-white px-6 py-3 font-medium hover:bg-muted transition-colors"
@@ -50,6 +51,29 @@ export default function Jobs() {
             className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors"
           >
             发布厂区招聘
+          </button>
+        </div>
+
+        <div className="flex flex-wrap gap-4 mb-12">
+          <button
+            onClick={() => exportJobsToExcel(dailyJobs, factories)}
+            className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors"
+          >
+            📊 导出全部Excel
+          </button>
+          <button
+            onClick={() => exportDailyJobsToExcel(dailyJobs)}
+            disabled={dailyJobs.length === 0}
+            className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
+          >
+            📋 导出兼职Excel
+          </button>
+          <button
+            onClick={() => exportFactoriesToExcel(factories)}
+            disabled={factories.length === 0}
+            className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
+          >
+            🏭 导出厂区Excel
           </button>
         </div>
 
