@@ -11,59 +11,71 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
-  const lampRef = useRef<HTMLDivElement>(null);
   const loginFormRef = useRef<HTMLDivElement>(null);
-  const cordRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const startY = useRef(0);
-  const currentY = useRef(0);
+  const dragStartY = useRef(0);
   
   const navigate = useNavigate();
 
-  const TRAVEL_THRESHOLD = 80;
+  const TRAVEL_THRESHOLD = 60;
 
-  const handleCordMouseDown = (e: React.MouseEvent) => {
-    isDragging.current = true;
-    startY.current = e.clientY;
-    document.body.style.cursor = 'grabbing';
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (isLampOn) return;
+    setIsDragging(true);
+    dragStartY.current = e.clientY;
+    e.preventDefault();
   };
 
-  const handleCordMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current || !cordRef.current || isLampOn) return;
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || isLampOn) return;
     
-    const deltaY = e.clientY - startY.current;
-    currentY.current = Math.max(0, deltaY);
-    
-    cordRef.current.style.transform = `translateY(${currentY.current}px)`;
-    
-    const rotation = Math.min(30, deltaY * 0.1);
-    cordRef.current.style.transform = `translateY(${currentY.current}px) rotate(${rotation}deg)`;
+    const currentY = e.clientY;
+    const offset = Math.max(0, currentY - dragStartY.current);
+    setDragOffset(offset);
   };
 
-  const handleCordMouseUp = () => {
-    if (!isDragging.current || isLampOn) return;
+  const handleMouseUp = () => {
+    if (!isDragging || isLampOn) return;
     
-    isDragging.current = false;
-    document.body.style.cursor = 'grab';
+    setIsDragging(false);
     
-    if (currentY.current > TRAVEL_THRESHOLD) {
+    if (dragOffset > TRAVEL_THRESHOLD) {
       turnOnLamp();
     } else {
-      if (cordRef.current) {
-        cordRef.current.style.transition = 'transform 0.3s ease-out';
-        cordRef.current.style.transform = 'translateY(0px) rotate(0deg)';
-        setTimeout(() => {
-          if (cordRef.current) {
-            cordRef.current.style.transition = '';
-          }
-        }, 300);
-      }
+      setDragOffset(0);
     }
-    
-    currentY.current = 0;
   };
+
+  useEffect(() => {
+    if (isDragging && !isLampOn) {
+      const handleMove = (e: MouseEvent) => {
+        const currentY = e.clientY;
+        const offset = Math.max(0, currentY - dragStartY.current);
+        setDragOffset(offset);
+      };
+
+      const handleUp = () => {
+        setIsDragging(false);
+        
+        if (dragOffset > TRAVEL_THRESHOLD) {
+          turnOnLamp();
+        } else {
+          setDragOffset(0);
+        }
+      };
+
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleUp);
+
+      return () => {
+        window.removeEventListener('mousemove', handleMove);
+        window.removeEventListener('mouseup', handleUp);
+      };
+    }
+  }, [isDragging, dragOffset, isLampOn]);
 
   const turnOnLamp = () => {
     setIsLampOn(true);
@@ -83,23 +95,9 @@ export default function Login() {
     if (containerRef.current) {
       containerRef.current.style.setProperty('--glow-color', newGlowColor);
     }
+    
+    setDragOffset(0);
   };
-
-  useEffect(() => {
-    document.body.style.cursor = 'grab';
-    
-    const handleGlobalMouseUp = () => {
-      if (isDragging.current) {
-        handleCordMouseUp();
-      }
-    };
-
-    window.addEventListener('mouseup', handleGlobalMouseUp);
-    
-    return () => {
-      window.removeEventListener('mouseup', handleGlobalMouseUp);
-    };
-  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,10 +124,12 @@ export default function Login() {
     }
   };
 
+  const cordRotation = Math.min(25, dragOffset * 0.15);
+
   return (
     <div 
       ref={containerRef}
-      className="min-h-screen flex items-center justify-center p-6"
+      className="min-h-screen flex items-center justify-center p-6 select-none"
       style={{ 
         background: isLampOn 
           ? 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%)' 
@@ -137,9 +137,10 @@ export default function Login() {
         transition: 'background 0.8s ease',
         ['--glow-color' as string]: glowColor
       }}
+      onMouseMove={handleMouseMove}
     >
-      <div className="flex items-center justify-center gap-8vmin flex-wrap p-8">
-        <div ref={lampRef} className="relative">
+      <div className="flex items-center justify-center gap-12 flex-wrap p-8">
+        <div className="relative" style={{ cursor: isLampOn ? 'default' : 'grab' }}>
           <svg
             style={{ height: '40vmin', overflow: 'visible', display: 'block' }}
             viewBox="0 0 333 484"
@@ -151,7 +152,7 @@ export default function Login() {
                 <stop 
                   style={{ 
                     stopColor: `hsl(45, ${isLampOn ? 20 : 0}%, ${isLampOn ? 75 : 50}%)`,
-                    stopOpacity: isLampOn ? 0.3 : 0 
+                    stopOpacity: isLampOn ? 0.4 : 0 
                   }} 
                 />
                 <stop offset="1" style={{ stopColor: `hsl(45, ${isLampOn ? 20 : 0}%, ${isLampOn ? 75 : 50}%)`, stopOpacity: 0 }} />
@@ -234,44 +235,57 @@ export default function Login() {
           </svg>
 
           <div
-            ref={cordRef}
-            className="absolute cursor-grab"
+            className="absolute"
             style={{
-              top: '140px',
+              top: '130px',
               left: '50%',
-              transform: 'translateX(-50%)',
-              cursor: isLampOn ? 'default' : 'grab',
+              transform: `translateX(-50%) translateY(${dragOffset}px) rotate(${cordRotation}deg)`,
+              transformOrigin: 'center top',
+              transition: isDragging ? 'none' : 'transform 0.3s ease-out',
+              cursor: isLampOn ? 'default' : (isDragging ? 'grabbing' : 'grab'),
             }}
-            onMouseDown={handleCordMouseDown}
-            onMouseMove={handleCordMouseMove}
+            onMouseDown={handleMouseDown}
           >
             <div 
               className="rounded-full"
               style={{
-                width: '8px',
-                height: '120px',
+                width: '10px',
+                height: '140px',
                 background: `hsl(210, 0%, ${isLampOn ? 60 : 40}%)`,
-                boxShadow: isLampOn ? `0 0 10px ${glowColor}` : 'none',
+                boxShadow: isLampOn ? `0 0 15px ${glowColor}` : 'none',
                 transition: 'background 0.5s ease, box-shadow 0.5s ease'
               }}
             />
             <div 
-              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full flex items-center justify-center"
+              className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 rounded-full flex items-center justify-center"
               style={{
-                background: `hsl(${shadeHue}, ${isLampOn ? 20 : 0}%, ${isLampOn ? 60 : 30}%)`,
-                boxShadow: isLampOn ? `0 0 15px ${glowColor}, 0 0 30px ${glowColor}` : 'none',
+                width: '40px',
+                height: '40px',
+                background: `hsl(${shadeHue}, ${isLampOn ? 20 : 0}%, ${isLampOn ? 70 : 30}%)`,
+                boxShadow: isLampOn 
+                  ? `0 0 20px ${glowColor}, 0 0 40px ${glowColor}` 
+                  : dragOffset > 0 
+                    ? `0 0 10px rgba(255, 255, 255, 0.3)` 
+                    : 'none',
                 transition: 'all 0.5s ease'
               }}
             >
-              <div className="text-xs text-white/80">
+              <span className="text-white text-lg">
                 {isLampOn ? '✓' : '↓'}
-              </div>
+              </span>
             </div>
           </div>
 
           {!isLampOn && (
-            <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-center">
-              <p className="text-gray-500 text-sm">拖动灯绳开灯</p>
+            <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 text-center whitespace-nowrap">
+              <p className="text-gray-500 text-base font-medium mb-2">
+                {dragOffset > 0 ? `已拖动 ${Math.round(dragOffset)}px` : '向下拖动开灯'}
+              </p>
+              {dragOffset >= TRAVEL_THRESHOLD && (
+                <p className="text-green-500 text-sm animate-pulse">
+                  ✨ 继续拖动即可开灯！
+                </p>
+              )}
             </div>
           )}
         </div>
