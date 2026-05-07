@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
@@ -16,49 +16,14 @@ export default function Login() {
   const [isDragging, setIsDragging] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
-  const containerRef = useState<React.RefObject<HTMLDivElement>>({ current: null })[0];
-  const loginFormRef = useState<React.RefObject<HTMLDivElement>>({ current: null })[0];
-  const dragStartY = useState<{ current: number }>({ current: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const loginFormRef = useRef<HTMLDivElement>(null);
+  const dragStartY = useRef(0);
   
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const TRAVEL_THRESHOLD = 60;
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (isLampOn) return;
-    setIsDragging(true);
-    dragStartY.current = e.clientY;
-    e.preventDefault();
-  };
-
-  useState(() => {
-    if (isDragging && !isLampOn) {
-      const handleMove = (e: MouseEvent) => {
-        const currentY = e.clientY;
-        const offset = Math.max(0, currentY - dragStartY.current);
-        setDragOffset(offset);
-      };
-
-      const handleUp = () => {
-        setIsDragging(false);
-        
-        if (dragOffset > TRAVEL_THRESHOLD) {
-          turnOnLamp();
-        } else {
-          setDragOffset(0);
-        }
-      };
-
-      window.addEventListener('mousemove', handleMove);
-      window.addEventListener('mouseup', handleUp);
-
-      return () => {
-        window.removeEventListener('mousemove', handleMove);
-        window.removeEventListener('mouseup', handleUp);
-      };
-    }
-  });
 
   const turnOnLamp = () => {
     setIsLampOn(true);
@@ -68,8 +33,44 @@ export default function Login() {
     const newGlowColorDark = `hsl(${newHue}, 40%, 35%)`;
     setGlowColor(newGlowColor);
     setGlowColorDark(newGlowColorDark);
-    
     setDragOffset(0);
+  };
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      if (!isDragging || isLampOn) return;
+      const currentY = e.clientY;
+      const offset = Math.max(0, currentY - dragStartY.current);
+      setDragOffset(offset);
+    };
+
+    const handleUp = () => {
+      if (!isDragging || isLampOn) return;
+      setIsDragging(false);
+      
+      if (dragOffset > TRAVEL_THRESHOLD) {
+        turnOnLamp();
+      } else {
+        setDragOffset(0);
+      }
+    };
+
+    if (isDragging && !isLampOn) {
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleUp);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseup', handleUp);
+    };
+  }, [isDragging, isLampOn, dragOffset]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (isLampOn) return;
+    setIsDragging(true);
+    dragStartY.current = e.clientY;
+    e.preventDefault();
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -91,6 +92,7 @@ export default function Login() {
 
   return (
     <div 
+      ref={containerRef}
       className="min-h-screen flex items-center justify-center p-6 select-none"
       style={{ 
         background: isLampOn 
@@ -251,6 +253,7 @@ export default function Login() {
         </div>
 
         <div
+          ref={loginFormRef}
           className="login-form"
           style={{
             opacity: isLampOn ? 1 : 0,
