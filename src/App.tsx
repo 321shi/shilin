@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import Login from "@/pages/Login";
+import Register from "@/pages/Register";
 import Home from "@/pages/Home";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -40,6 +41,10 @@ function App() {
         <Route 
           path="/" 
           element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />} 
+        />
+        <Route 
+          path="/register" 
+          element={isAuthenticated ? <Navigate to="/home" replace /> : <Register />} 
         />
         <Route
           path="/home"
