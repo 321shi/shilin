@@ -34,51 +34,87 @@ body {
 
 @layer utilities {
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.37)];
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   }
-  
+
   .glass-light {
-    @apply bg-white/8 backdrop-blur-md border border-white/15 shadow-lg;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   }
-  
+
   .glass-strong {
-    @apply bg-white/12 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.45)];
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   }
-  
+
   .glass-card {
-    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/15 shadow-2xl;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
   }
-  
+
   .glass-button {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 transition-all duration-300;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
   }
-  
+
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
   .glass-input {
-    @apply bg-white/8 backdrop-blur-sm border border-white/15 focus:border-primary/50 transition-all duration-300;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
   }
-  
+
+  .glass-input:focus {
+    border-color: rgba(99, 102, 241, 0.5);
+    outline: none;
+  }
+
   .gradient-text {
-    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+    background: linear-gradient(to right, #6366f1, #8b5cf6, #06b6d4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
-  
+
   .glow-border {
     box-shadow: 0 0 0px rgba(255, 255, 255, 0);
     transition: all 0.3s ease;
   }
-  
+
   .glow-border.active {
-    @apply border border-primary/40;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.05),
                 0 0 30px var(--glow-color, #6366f1),
                 inset 0 0 15px rgba(255, 255, 255, 0.03);
   }
-  
+
   .animated-gradient {
     background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.15) 25%, rgba(6,182,212,0.1) 50%, rgba(245,158,11,0.15) 75%, rgba(99,102,241,0.1) 100%);
     background-size: 300% 300%;
     animation: gradientFloat 8s ease-in-out infinite;
   }
-  
+
   @keyframes gradientFloat {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
