@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useJobs } from '../hooks/useJobs';
-import { LineArrowLeft, LineStar, LineHeart, LinePaw } from '../components/CuteDecorations';
+import { useJobs } from '@/hooks/useJobs';
+import { LineArrowLeft } from '../components/CuteDecorations';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { exportJobsToExcel, exportDailyJobsToExcel, exportFactoriesToExcel } from '../lib/jobUtils';
+import { ArrowLeft, Calendar, MapPin, Phone, DollarSign, Users, Clock, Sparkles, Building2 } from 'lucide-react';
 
 export default function Jobs() {
   const navigate = useNavigate();
@@ -20,209 +23,241 @@ export default function Jobs() {
   };
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10"><LineStar size={40} /></div>
-        <div className="absolute bottom-40 right-20"><LineHeart size={50} /></div>
-        <div className="absolute top-40 right-32"><LinePaw size={30} /></div>
+    <div className="min-h-screen bg-background">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-12">
-        <button 
-          onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-primary hover:text-muted transition-colors mb-8"
-        >
-          <LineArrowLeft />
-          <span>返回首页</span>
-        </button>
-
-        <h1 className="text-4xl font-bold mb-2">劳务信息</h1>
-        <p className="text-muted mb-8">兼职日结 · 厂区招聘</p>
-
-        <div className="flex flex-wrap gap-4 mb-12">
-          <button
-            onClick={() => navigate('/create-daily-job')}
-            className="bg-primary text-white px-6 py-3 font-medium hover:bg-muted transition-colors"
-          >
-            发布兼职日结
-          </button>
-          <button
-            onClick={() => navigate('/create-factory')}
-            className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors"
-          >
-            发布厂区招聘
-          </button>
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" onClick={() => navigate('/')}>
+                <ArrowLeft className="w-5 h-5" />
+                返回
+              </Button>
+              <div>
+                <h1 className="text-2xl font-bold gradient-text">劳务资源</h1>
+                <p className="text-sm text-muted-foreground">兼职日结 · 厂区招聘</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Button variant="outline" size="sm" onClick={() => navigate('/create-daily-job')}>
+                <Sparkles className="w-4 h-4" />
+                发布兼职
+              </Button>
+              <Button variant="gradient" size="sm" onClick={() => navigate('/create-factory')}>
+                <Building2 className="w-4 h-4" />
+                发布厂区
+              </Button>
+            </div>
+          </div>
         </div>
+      </header>
 
-        <div className="flex flex-wrap gap-4 mb-12">
-          <button
-            onClick={() => exportJobsToExcel(dailyJobs, factories)}
-            className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors"
-          >
-            📊 导出全部Excel
-          </button>
-          <button
+      <main className="container mx-auto px-6 py-12 relative z-10">
+        <div className="flex flex-wrap gap-3 mb-12">
+          <Button variant="outline" onClick={() => exportJobsToExcel(dailyJobs, factories)}>
+            <Sparkles className="w-4 h-4" />
+            导出全部Excel
+          </Button>
+          <Button 
+            variant="outline" 
             onClick={() => exportDailyJobsToExcel(dailyJobs)}
             disabled={dailyJobs.length === 0}
-            className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
           >
-            📋 导出兼职Excel
-          </button>
-          <button
+            导出兼职Excel
+          </Button>
+          <Button 
+            variant="outline" 
             onClick={() => exportFactoriesToExcel(factories)}
             disabled={factories.length === 0}
-            className="border-2 border-primary px-6 py-3 font-medium hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
           >
-            🏭 导出厂区Excel
-          </button>
+            导出厂区Excel
+          </Button>
         </div>
 
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-            <LinePaw />
-            兼职日结
-            <span className="text-sm font-normal text-muted">({dailyJobs.length})</span>
+          <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+            <span className="gradient-text">兼职日结</span>
+            <span className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 text-sm">
+              {dailyJobs.length}
+            </span>
           </h2>
 
           {dailyJobs.length === 0 ? (
-            <div className="border-2 border-dashed border-primary p-12 text-center">
-              <p className="text-muted mb-4">暂无兼职信息</p>
-              <button
-                onClick={() => navigate('/create-daily-job')}
-                className="text-primary underline"
-              >
-                立即发布第一条兼职
-              </button>
-            </div>
+            <Card className="text-center py-16">
+              <CardContent>
+                <div className="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Sparkles className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">暂无兼职信息</h3>
+                <p className="text-muted-foreground mb-6">开始发布第一条兼职吧！</p>
+                <Button variant="gradient" onClick={() => navigate('/create-daily-job')}>
+                  发布兼职
+                </Button>
+              </CardContent>
+            </Card>
           ) : (
-            <div className="grid gap-4">
-              {dailyJobs.map(job => (
-                <div key={job.id} className="border-2 border-primary p-6 relative">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {dailyJobs.map((job) => (
+                <Card key={job.id} className="group hover:shadow-xl hover:border-primary/50 transition-all duration-300 overflow-hidden">
                   {job.urgent && (
-                    <div className="absolute -top-3 right-4 bg-primary text-white text-xs px-3 py-1">
-                      紧急
+                    <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 text-sm font-medium">
+                      🔥 紧急招聘
                     </div>
                   )}
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold">{job.title}</h3>
-                    <span className="text-2xl font-bold">{job.wage}</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                    <div>
-                      <span className="text-muted">工作时长：</span>
-                      {job.workTime}
-                    </div>
-                    <div>
-                      <span className="text-muted">工作地点：</span>
-                      {job.location}
-                    </div>
-                    {job.requirements && (
-                      <div className="col-span-2">
-                        <span className="text-muted">要求：</span>
-                        {job.requirements}
+                  <CardHeader>
+                    <div className="flex justify-between items-start mb-4">
+                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                        {job.title}
+                      </CardTitle>
+                      <div className="text-2xl font-bold gradient-text">
+                        {job.wage}
                       </div>
-                    )}
-                    <div>
-                      <span className="text-muted">联系人：</span>
-                      {job.contact}
                     </div>
-                    <div>
-                      <span className="text-muted">电话：</span>
-                      <a href={`tel:${job.phone}`} className="underline">{job.phone}</a>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3 mb-4">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Clock className="w-4 h-4 text-muted-foreground" />
+                        <span>{job.workTime}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <MapPin className="w-4 h-4 text-muted-foreground" />
+                        <span className="truncate">{job.location}</span>
+                      </div>
+                      {job.requirements && (
+                        <div className="text-sm text-muted-foreground line-clamp-2">
+                          {job.requirements}
+                        </div>
+                      )}
                     </div>
-                  </div>
+                    
+                    <div className="flex items-center gap-3 text-sm mb-4 p-3 bg-muted/50 rounded-lg">
+                      <Users className="w-4 h-4" />
+                      <span>{job.contact}</span>
+                      <a href={`tel:${job.phone}`} className="ml-auto text-primary font-medium flex items-center gap-1">
+                        <Phone className="w-4 h-4" />
+                        {job.phone}
+                      </a>
+                    </div>
 
-                  <div className="flex justify-between items-center pt-4 border-t border-primary">
-                    <span className="text-xs text-muted">发布于 {job.date}</span>
-                    <button
-                      onClick={() => handleDeleteJob(job.id)}
-                      className="text-sm text-muted hover:text-primary underline"
-                    >
-                      删除
-                    </button>
-                  </div>
-                </div>
+                    <div className="flex items-center justify-between pt-4 border-t">
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {job.date}
+                      </span>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleDeleteJob(job.id)}
+                        className="text-destructive hover:text-destructive"
+                      >
+                        删除
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           )}
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-            <LineHeart />
-            厂区招聘
-            <span className="text-sm font-normal text-muted">({factories.length})</span>
+          <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+            <span className="gradient-text">厂区招聘</span>
+            <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 text-sm">
+              {factories.length}
+            </span>
           </h2>
 
           {factories.length === 0 ? (
-            <div className="border-2 border-dashed border-primary p-12 text-center">
-              <p className="text-muted mb-4">暂无厂区招聘信息</p>
-              <button
-                onClick={() => navigate('/create-factory')}
-                className="text-primary underline"
-              >
-                立即发布第一个厂区
-              </button>
-            </div>
-          ) : (
-            <div className="grid gap-4">
-              {factories.map(factory => (
-                <div key={factory.id} className="border-2 border-primary p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold">{factory.name}</h3>
-                    <span className="text-lg font-bold">{factory.salary}</span>
-                  </div>
-                  
-                  <div className="mb-4">
-                    <span className="text-muted">地址：</span>
-                    {factory.location}
-                  </div>
-
-                  <div className="mb-4">
-                    <span className="text-muted">招聘岗位：</span>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {factory.positions.map((position, idx) => (
-                        <span key={idx} className="border border-primary px-3 py-1 text-sm">
-                          {position}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {factory.welfare && (
-                    <div className="mb-4 whitespace-pre-line text-sm">
-                      <span className="text-muted">福利待遇：</span>
-                      {factory.welfare}
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                    <div>
-                      <span className="text-muted">联系人：</span>
-                      {factory.contact}
-                    </div>
-                    <div>
-                      <span className="text-muted">电话：</span>
-                      <a href={`tel:${factory.phone}`} className="underline">{factory.phone}</a>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-between items-center pt-4 border-t border-primary">
-                    <span className="text-xs text-muted">发布于 {factory.date}</span>
-                    <button
-                      onClick={() => handleDeleteFactory(factory.id)}
-                      className="text-sm text-muted hover:text-primary underline"
-                    >
-                      删除
-                    </button>
-                  </div>
+            <Card className="text-center py-16">
+              <CardContent>
+                <div className="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Building2 className="w-10 h-10 text-white" />
                 </div>
+                <h3 className="text-2xl font-bold mb-2">暂无厂区招聘信息</h3>
+                <p className="text-muted-foreground mb-6">开始发布第一个厂区吧！</p>
+                <Button variant="gradient" onClick={() => navigate('/create-factory')}>
+                  发布厂区
+                </Button>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {factories.map((factory) => (
+                <Card key={factory.id} className="group hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex justify-between items-start mb-2">
+                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                        {factory.name}
+                      </CardTitle>
+                    </div>
+                    <div className="text-lg font-bold gradient-text">
+                      {factory.salary}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3 mb-4">
+                      <div className="flex items-start gap-2 text-sm">
+                        <MapPin className="w-4 h-4 text-muted-foreground mt-0.5" />
+                        <span>{factory.location}</span>
+                      </div>
+                      
+                      <div>
+                        <span className="text-sm text-muted-foreground mb-2 block">招聘岗位：</span>
+                        <div className="flex flex-wrap gap-2">
+                          {factory.positions.map((position, idx) => (
+                            <span 
+                              key={idx} 
+                              className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 text-sm"
+                            >
+                              {position}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {factory.welfare && (
+                        <div className="text-sm text-muted-foreground whitespace-pre-line">
+                          {factory.welfare}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-3 text-sm mb-4 p-3 bg-muted/50 rounded-lg">
+                      <Users className="w-4 h-4" />
+                      <span>{factory.contact}</span>
+                      <a href={`tel:${factory.phone}`} className="ml-auto text-primary font-medium flex items-center gap-1">
+                        <Phone className="w-4 h-4" />
+                        {factory.phone}
+                      </a>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t">
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {factory.date}
+                      </span>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleDeleteFactory(factory.id)}
+                        className="text-destructive hover:text-destructive"
+                      >
+                        删除
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           )}
         </section>
-      </div>
+      </main>
     </div>
   );
 }
