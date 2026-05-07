@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Login() {
   const [isLampOn, setIsLampOn] = useState(false);
@@ -13,12 +14,14 @@ export default function Login() {
   const [error, setError] = useState('');
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   
-  const containerRef = useRef<HTMLDivElement>(null);
-  const loginFormRef = useRef<HTMLDivElement>(null);
-  const dragStartY = useRef(0);
+  const containerRef = useState<React.RefObject<HTMLDivElement>>({ current: null })[0];
+  const loginFormRef = useState<React.RefObject<HTMLDivElement>>({ current: null })[0];
+  const dragStartY = useState<{ current: number }>({ current: 0 });
   
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const TRAVEL_THRESHOLD = 60;
 
@@ -29,27 +32,7 @@ export default function Login() {
     e.preventDefault();
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || isLampOn) return;
-    
-    const currentY = e.clientY;
-    const offset = Math.max(0, currentY - dragStartY.current);
-    setDragOffset(offset);
-  };
-
-  const handleMouseUp = () => {
-    if (!isDragging || isLampOn) return;
-    
-    setIsDragging(false);
-    
-    if (dragOffset > TRAVEL_THRESHOLD) {
-      turnOnLamp();
-    } else {
-      setDragOffset(0);
-    }
-  };
-
-  useEffect(() => {
+  useState(() => {
     if (isDragging && !isLampOn) {
       const handleMove = (e: MouseEvent) => {
         const currentY = e.clientY;
@@ -75,7 +58,7 @@ export default function Login() {
         window.removeEventListener('mouseup', handleUp);
       };
     }
-  }, [isDragging, dragOffset, isLampOn]);
+  });
 
   const turnOnLamp = () => {
     setIsLampOn(true);
@@ -86,41 +69,21 @@ export default function Login() {
     setGlowColor(newGlowColor);
     setGlowColorDark(newGlowColorDark);
     
-    if (loginFormRef.current) {
-      loginFormRef.current.style.opacity = '1';
-      loginFormRef.current.style.transform = 'scale(1) translateY(0)';
-      loginFormRef.current.style.pointerEvents = 'auto';
-    }
-    
-    if (containerRef.current) {
-      containerRef.current.style.setProperty('--glow-color', newGlowColor);
-    }
-    
     setDragOffset(0);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
-    if (!username || !password) {
-      setError('请输入用户名和密码');
-      return;
-    }
-
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const registeredUser = users.find((u: any) => 
-      (u.username === username || u.email === username) && u.password === password
-    );
-
-    if (registeredUser || (username === 'admin' && password === '123456')) {
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('username', username);
+    try {
+      await login(username, password);
       navigate('/home');
-    } else if (users.length > 0) {
-      setError('用户名或密码错误');
-    } else {
-      setError('账号不存在，请先注册');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '登录失败');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -128,16 +91,13 @@ export default function Login() {
 
   return (
     <div 
-      ref={containerRef}
       className="min-h-screen flex items-center justify-center p-6 select-none"
       style={{ 
         background: isLampOn 
           ? 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%)' 
           : '#121921',
         transition: 'background 0.8s ease',
-        ['--glow-color' as string]: glowColor
       }}
-      onMouseMove={handleMouseMove}
     >
       <div className="flex items-center justify-center gap-12 flex-wrap p-8">
         <div className="relative" style={{ cursor: isLampOn ? 'default' : 'grab' }}>
@@ -291,7 +251,6 @@ export default function Login() {
         </div>
 
         <div
-          ref={loginFormRef}
           className="login-form"
           style={{
             opacity: isLampOn ? 1 : 0,
@@ -331,6 +290,7 @@ export default function Login() {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="请输入账号"
                 required
+                disabled={isLoading}
                 style={{
                   width: '100%',
                   padding: '0.75rem 1rem',
@@ -376,6 +336,7 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="请输入密码"
                   required
+                  disabled={isLoading}
                   style={{
                     width: '100%',
                     padding: '0.75rem 1rem',
@@ -402,8 +363,8 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
-                  style={{ top: '40%' }}
+                  className="absolute right-3 text-gray-400 hover:text-white transition-colors"
+                  style={{ top: '40%', transform: 'translateY(-50%)' }}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -418,30 +379,33 @@ export default function Login() {
             
             <button
               type="submit"
+              disabled={isLoading}
               style={{
                 width: '100%',
                 padding: '0.875rem',
-                background: `linear-gradient(135deg, ${glowColor}, ${glowColorDark})`,
+                background: isLoading ? '#666' : `linear-gradient(135deg, ${glowColor}, ${glowColorDark})`,
                 border: 'none',
                 borderRadius: '10px',
                 color: '#fff',
                 fontSize: '1rem',
                 fontWeight: 600,
-                cursor: 'pointer',
+                cursor: isLoading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
                 marginTop: '0.5rem',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = `0 6px 20px rgba(0, 0, 0, 0.3), 0 0 20px ${glowColor}`;
+                if (!isLoading) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = `0 6px 20px rgba(0, 0, 0, 0.3), 0 0 20px ${glowColor}`;
+                }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
               }}
             >
-              登录
+              {isLoading ? '登录中...' : '登录'}
             </button>
             
             <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
@@ -467,25 +431,6 @@ export default function Login() {
               >
                 还没有账号？立即注册
               </a>
-            </div>
-
-            <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
-              <p style={{ fontSize: '0.75rem', color: '#666', textAlign: 'center', marginBottom: '0.5rem' }}>
-                测试账号
-              </p>
-              <div style={{ 
-                background: 'rgba(255, 255, 255, 0.05)', 
-                borderRadius: '8px', 
-                padding: '0.75rem',
-                fontSize: '0.8rem'
-              }}>
-                <p style={{ color: '#888', margin: '0.25rem 0' }}>
-                  用户名：<span style={{ color: '#6366f1' }}>admin</span>
-                </p>
-                <p style={{ color: '#888', margin: '0.25rem 0' }}>
-                  密码：<span style={{ color: '#6366f1' }}>123456</span>
-                </p>
-              </div>
             </div>
           </form>
         </div>
@@ -514,13 +459,6 @@ export default function Login() {
           min-width: 320px;
           border: 2px solid transparent;
           box-shadow: 0 0 0px rgba(255, 255, 255, 0);
-        }
-        
-        .login-form[style*="opacity: 1"] {
-          border-color: ${glowColor};
-          box-shadow: 0 0 15px rgba(255, 255, 255, 0.1),
-                      0 0 30px ${glowColor},
-                      inset 0 0 15px rgba(255, 255, 255, 0.05);
         }
         
         .form-group {

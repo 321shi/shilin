@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { api } from '@/services/api';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ export default function Register() {
     confirmPassword: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const validate = () => {
@@ -41,31 +43,24 @@ export default function Register() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (validate()) {
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      
-      if (users.some((u: any) => u.email === formData.email)) {
-        setErrors({ email: '该邮箱已被注册' });
-        return;
-      }
+    if (!validate()) return;
+    
+    setIsLoading(true);
+    setErrors({});
 
-      if (users.some((u: any) => u.username === formData.username)) {
-        setErrors({ username: '该用户名已被占用' });
-        return;
-      }
+    const result = await api.register(
+      formData.username,
+      formData.email,
+      formData.password
+    );
 
-      const newUser = {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      };
-      
-      users.push(newUser);
-      localStorage.setItem('users', JSON.stringify(users));
-      
+    if (result.error) {
+      setErrors({ general: result.error });
+      setIsLoading(false);
+    } else {
       alert('注册成功！请登录');
       navigate('/');
     }
@@ -91,6 +86,12 @@ export default function Register() {
         <h2 className="text-3xl font-bold mb-2 text-center gradient-text">注册账号</h2>
         <p className="text-muted text-center mb-8">创建你的个人账户</p>
 
+        {errors.general && (
+          <div className="bg-red-500/10 border border-red-500/30 text-red-500 px-4 py-3 rounded-xl text-sm mb-6 text-center">
+            {errors.general}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label htmlFor="username" className="block text-sm font-medium mb-2">
@@ -105,6 +106,7 @@ export default function Register() {
                 errors.username ? 'border-red-500' : 'border-border focus:border-primary'
               }`}
               placeholder="请输入用户名"
+              disabled={isLoading}
             />
             {errors.username && (
               <p className="text-red-500 text-sm mt-1">{errors.username}</p>
@@ -124,6 +126,7 @@ export default function Register() {
                 errors.email ? 'border-red-500' : 'border-border focus:border-primary'
               }`}
               placeholder="example@email.com"
+              disabled={isLoading}
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -143,6 +146,7 @@ export default function Register() {
                 errors.password ? 'border-red-500' : 'border-border focus:border-primary'
               }`}
               placeholder="请输入密码"
+              disabled={isLoading}
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
@@ -162,6 +166,7 @@ export default function Register() {
                 errors.confirmPassword ? 'border-red-500' : 'border-border focus:border-primary'
               }`}
               placeholder="请再次输入密码"
+              disabled={isLoading}
             />
             {errors.confirmPassword && (
               <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
@@ -170,9 +175,10 @@ export default function Register() {
 
           <button
             type="submit"
-            className="w-full px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl"
+            disabled={isLoading}
+            className="w-full px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            注册
+            {isLoading ? '注册中...' : '注册'}
           </button>
         </form>
 
