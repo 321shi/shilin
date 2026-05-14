@@ -1,16 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
+import { useJobStore } from "./store/jobStore";
+import Header from "./components/Header";
+import PartTimePage from "./pages/PartTimePage";
+import FactoryPage from "./pages/FactoryPage";
 
-export default function App() {
+function App() {
+  const { partTimeJobs, factoryJobs } = useJobStore();
+  
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+        <Header partTimeCount={partTimeJobs.length} factoryCount={factoryJobs.length} />
+        <Routes>
+          <Route path="/" element={<PartTimePage />} />
+          <Route path="/part-time" element={<PartTimePage />} />
+          <Route path="/factory" element={<FactoryPage />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
+
+export default App;
