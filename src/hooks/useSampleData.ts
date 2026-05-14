@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useJobStore } from '../store/jobStore';
 
 export default function useSampleData() {
   const { addPartTimeJob, addFactoryJob, partTimeJobs, factoryJobs } = useJobStore();
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
-    if (partTimeJobs.length === 0 && factoryJobs.length === 0) {
+    // 等待 store 从 localStorage 加载完成
+    if (!hasInitialized && partTimeJobs.length === 0 && factoryJobs.length === 0) {
+      setHasInitialized(true);
       setTimeout(() => {
         addPartTimeJob({
           salary: 130,
@@ -52,7 +55,10 @@ export default function useSampleData() {
           insurance: '保险100/月',
           notes: '禁止拖鞋、短裤、凉鞋',
         });
-      }, 100);
+      }, 500);
+    } else if (!hasInitialized && (partTimeJobs.length > 0 || factoryJobs.length > 0)) {
+      // 如果已经有数据了，说明已经从 localstorage 加载了
+      setHasInitialized(true);
     }
-  }, []);
+  }, [partTimeJobs.length, factoryJobs.length, hasInitialized, addPartTimeJob, addFactoryJob]);
 }
